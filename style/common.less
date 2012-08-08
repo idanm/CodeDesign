@@ -1,0 +1,55 @@
+/* Reset */
+* {margin: 0; padding: 0; /*border:1px solid red;*/}
+img {border: 0; font-size: 0; line-height: 0;}
+a {outline: none}
+
+/* Preset */
+.none {display: none;}
+
+/* Clearfix by http://nicolasgallagher.com/micro-clearfix-hack/ */
+.cf:before, .cf:after {content: " "; display: table;}
+.cf:after {clear: both;}
+.cf {*zoom: 1;}
+
+// Variables
+@grid-width: 500px;
+
+body {
+	background-color: #fff;
+	color: #000;
+	font: normal 100% verdana,arial,tahoma,sans-serif;
+	
+	div#page {
+		margin: 20px auto;
+		width: @grid-width;
+		
+		div#menu {
+			&, ul {
+				position: relative;
+			}
+		
+			ul {
+				list-style-type: none;
+				z-index: 2;
+				
+				li {
+					float: left;
+					margin-right: 10px;
+					
+					a {
+						display: inline-block;
+						padding: 10px 15px;
+					}
+				}
+			}
+			
+			div.cursor {
+				background-color: #999;
+				display: block;
+				position: absolute;
+				top: 0;
+				z-index: 1;
+			}
+		}
+	}
+}

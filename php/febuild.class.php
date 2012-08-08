@@ -1,9 +1,10 @@
 <?php require_once(dirname(__FILE__). '/febuild.library.php'); 
 
 class FEBuild extends FEBuildLibrary {
-	protected $output, $settings;
+	protected $input, $output, $settings;
 	
 	public function __construct() {
+		$this->input = '';
 		$this->output = "";
 		$this->settings = array(
 			"environment" 	=> "develop",
@@ -12,10 +13,27 @@ class FEBuild extends FEBuildLibrary {
 		);
 	}
 	
-	private function SetThings($params) {
-		foreach($params as $key => $value) {
+	private function IfLib($path) {
+		$_path = explode(".", $path);
+		$extension = end($_path);
 			
-		}
+			switch($extension) {
+				case "less":
+					$input = implode(".", $_path);
+					$_path[count($_path) -1] = "css";
+					$output = implode(".", $_path);
+					
+					self::Less($input, $output);
+				break;
+				case "coffee":
+				break;
+				default:
+				break;
+			}
+			
+			$path = implode(".", $_path);
+		
+		return $path;
 	}
 	
 	private function Debug() {
@@ -27,37 +45,43 @@ class FEBuild extends FEBuildLibrary {
 		return $this;
 	}
 	
-	private function StyleFile($params) {
-		foreach($params as $key => $value) {
-			$src = is_string($value) ? $value : $value["src"];
+	private function SetThings($options) {
+		foreach($options as $key => $value) {
+			$this->settings[$key] = $value;
+		}
+	}
+	
+	private function StyleFile($options) {
+		foreach($options as $key => $value) {
+			$src = $this->IfLib(is_string($value) ? $value : $value["src"]);
 			$media = is_string($value) || empty($value["media"]) ? "screen" : $value["media"];
 			
 			$this->output .= '<link rel="stylesheet" type="text/css" href="'. $src .'" media="'. $media .'">'."\n";
 		}
 	}
 	
-	private function JavascriptFile($params) {
-		foreach($params as $key => $value) {
+	private function JavascriptFile($options) {
+		foreach($options as $key => $value) {
 			$this->output .= '<script scr="'. $value .'"></script>'."\n";
 		}
 	}
 	
-	private function Lab($json) {
-		$settings = json_decode($json, true, 9);
+	private function Lab($input) {
+		$this->input = json_decode($input, true, 9);
 			
-			foreach($settings as $options => $params) {
-				switch($options) {
+			foreach($this->input as $settings => $options) {
+				switch($settings) {
 					case "config":
-						$this->SetThings($params);
+						$this->SetThings($options);
 					break;
 					case "style":
-						$this->StyleFile($params);
+						$this->StyleFile($options);
 					break;
 					case "javascript":
-						$this->JavascriptFile($params);
+						$this->JavascriptFile($options);
 					break;
 					default: 
-						echo "No Options ${options}";
+						echo "No ${options} Options!";
 					break;
 				}
 			}
