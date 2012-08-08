@@ -1,4 +1,6 @@
-<?php class FEBuild {
+<?php require_once(dirname(__FILE__). '/febuild.library.php'); 
+
+class FEBuild extends FEBuildLibrary {
 	protected $output, $settings;
 	
 	public function __construct() {
@@ -8,8 +10,6 @@
 			"root_path"		=> "",
 			"version"		=> "0.1"
 		);
-		// http://code.google.com/p/minify/
-		// http://code.google.com/p/cssmin/
 	}
 	
 	private function SetThings($params) {
@@ -18,17 +18,7 @@
 		}
 	}
 	
-	private function IfLess($path) {
-		/*require_once(dirname(__FILE__) .'/lib/lessc.inc.php');
-			try {
-				lessc::ccompile($path, $path.'.css');
-			} catch (exception $ex) {
-				exit('lessc fatal error:<br />'.$ex->getMessage());
-			}*/
-		return $path;
-	}
-	
-	private function IfDebug() {
+	private function Debug() {
 		if (!empty($_GET["debug"])) {
 			$moo = "Big Cow, Says Mooo !!!";
 			$this->output .= '<script>console.log("'. $moo .'");</script>';
@@ -39,7 +29,7 @@
 	
 	private function StyleFile($params) {
 		foreach($params as $key => $value) {
-			$src = $this->IfLess(is_string($value) ? $value : $value["src"]);
+			$src = is_string($value) ? $value : $value["src"];
 			$media = is_string($value) || empty($value["media"]) ? "screen" : $value["media"];
 			
 			$this->output .= '<link rel="stylesheet" type="text/css" href="'. $src .'" media="'. $media .'">'."\n";
@@ -58,7 +48,7 @@
 			foreach($settings as $options => $params) {
 				switch($options) {
 					case "config":
-						//$this->SetThings($params);
+						$this->SetThings($params);
 					break;
 					case "style":
 						$this->StyleFile($params);
@@ -72,7 +62,7 @@
 				}
 			}
 
-		echo $this->IfDebug()->output;
+		echo $this->Debug()->output;
 	}
 	
 	public static function Run($json) {

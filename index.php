@@ -20,8 +20,8 @@
 		],
 		"javascript": [
 			"script/lib/jquery.js",
-			"script/general.js",
-			"script/custom.js"
+			"script/custom.coffee",
+			"script/general.js"
 		]
 	}'); ?>
 	
