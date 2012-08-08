@@ -4,7 +4,7 @@
 	<meta name="description" content="" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	
-	<?php require_once(dirname(__FILE__). '/febuild.class.php'); FEBuild::Run('{
+	<?php require_once(dirname(__FILE__). '/php/febuild.class.php'); FEBuild::Run('{
 		"config": {
 			"environment": "develop",
 			"root_path": "/srv/www/test.local/public_html",
