@@ -22,7 +22,7 @@
 			}
 		}
 		
-		protected function Less($path) {
+		public function Less($path) {
 			$_path = explode(".", $path);
 			$_path[count($_path) -1] = "css";
 			$output = implode(".", $_path);
@@ -32,7 +32,7 @@
 			return $output;
 		}
 		
-		protected function CoffeeScript($path) {
+		public function CoffeeScript($path) {
 			$_path = explode(".", $path);
 			$_path[count($_path) -1] = "js";
 			$output = "";
@@ -44,6 +44,34 @@
 				file_put_contents($path, $output);
 				
 			return $path;
+		}
+	
+		public function Concat($files, $path) {
+			$files = explode(",", $files);
+				unset($files[count($files) -1]);
+			$output = array(
+				"css" => "",
+				"js"  => ""
+			);
+			
+			foreach($files as $file) {
+				$output[end(explode(".",$file))] .= trim(file_get_contents($file));
+			}
+			
+			foreach($output as $key => $value) {
+				file_put_contents($path[end(explode(".",$output[$key]))], $output[$value], FILE_APPEND);
+				
+				switch($output[$key]) {
+					case "css":
+						$output[$key] = '<link rel="stylesheet" type="text/css" href="'. $value .'" media="screen">'."\n";
+					break;
+					case "js":
+						$output[$key] = '<script scr="'. $value .'"></script>'."\n";
+					break;
+				}
+			}
+
+			echo implode("", $output);
 		}
 	
 		# http://leafo.net/scssphp/

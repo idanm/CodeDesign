@@ -4,12 +4,13 @@
 	<meta name="description" content="" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	
-	<?php require_once(dirname(__FILE__). '/php/febuild.class.php'); FEBuild::Run('{
+	<?php require_once(dirname(__FILE__). '/febuild/febuild.class.php'); FEBuild::Run('{
 		"config": {
-			"environment": "develop"
+			"environment": 	"develop",
+			"concat":		true
 		},
 		"style": [
-			"style/common.less",
+			"style/example.less",
 			"style/general.css",
 			{
 				"src": "style/print.css",
@@ -18,7 +19,7 @@
 		],
 		"javascript": [
 			"script/libs/jquery.min.js",
-			"script/common.coffee",
+			"script/example.coffee",
 			"script/general.js"
 		]
 	}'); ?>
