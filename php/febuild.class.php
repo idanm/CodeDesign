@@ -1,6 +1,6 @@
 <?php require_once(dirname(__FILE__). '/febuild.library.php'); 
 
-class FEBuild extends FEBuildLibrary {
+class FEBuild extends FEBuild_Library {
 	protected $input, $output, $settings;
 	
 	public function __construct() {
@@ -8,61 +8,13 @@ class FEBuild extends FEBuildLibrary {
 		$this->output = "";
 		$this->settings = array(
 			"environment" 	=> "develop",
-			"root_path"		=> "",
 			"version"		=> "0.1"
 		);
 	}
 	
-	private function IfLib($path) {
-		$_path = explode(".", $path);
-		$extension = end($_path);
-			
-			switch($extension) {
-				case "less":
-					$input = implode(".", $_path);
-					$_path[count($_path) -1] = "css";
-					$output = implode(".", $_path);
-					
-					self::Less($input, $output);
-				break;
-				case "coffee":
-				break;
-				default:
-				break;
-			}
-			
-			$path = implode(".", $_path);
-		
-		return $path;
-	}
-	
-	private function Debug() {
-		if (!empty($_GET["debug"])) {
-			$moo = "Big Cow, Says Mooo !!!";
-			$this->output .= '<script>console.log("'. $moo .'");</script>';
-		}
-		
-		return $this;
-	}
-	
-	private function SetThings($options) {
-		foreach($options as $key => $value) {
-			$this->settings[$key] = $value;
-		}
-	}
-	
-	private function StyleFile($options) {
-		foreach($options as $key => $value) {
-			$src = $this->IfLib(is_string($value) ? $value : $value["src"]);
-			$media = is_string($value) || empty($value["media"]) ? "screen" : $value["media"];
-			
-			$this->output .= '<link rel="stylesheet" type="text/css" href="'. $src .'" media="'. $media .'">'."\n";
-		}
-	}
-	
-	private function JavascriptFile($options) {
-		foreach($options as $key => $value) {
-			$this->output .= '<script scr="'. $value .'"></script>'."\n";
+	public static function Run($json) {
+		if (!empty($json)) {
+			$self = new FEBuild(); return $self->Lab($json);
 		}
 	}
 	
@@ -89,9 +41,50 @@ class FEBuild extends FEBuildLibrary {
 		echo $this->Debug()->output;
 	}
 	
-	public static function Run($json) {
-		if (!empty($json)) {
-			$self = new FEBuild(); return $self->Lab($json);
+	private function Debug() {
+		if (!empty($_GET["debug"])) {
+			$moo = "Big Cow, Says Mooo !!!";
+			$this->output .= '<script>console.log("'. $moo .'");</script>';
+		}
+		
+		return $this;
+	}	
+	
+	private function IfLib($path) {
+		$extension = end(explode(".",$path));
+			
+			switch($extension) {
+				case "less":
+					$path = $this->Less($path);
+				break;
+				case "coffee":
+					$path = $this->CoffeeScript($path);
+				break;
+				default:
+				break;
+			}
+		
+		return $path;
+	}
+	
+	private function SetThings($options) {
+		foreach($options as $key => $value) {
+			$this->settings[$key] = $value;
+		}
+	}
+	
+	private function StyleFile($options) {
+		foreach($options as $key => $value) {
+			$src = $this->IfLib(is_string($value) ? $value : $value["src"]);
+			$media = is_string($value) || empty($value["media"]) ? "screen" : $value["media"];
+			
+			$this->output .= '<link rel="stylesheet" type="text/css" href="'. $src .'" media="'. $media .'">'."\n";
+		}
+	}
+	
+	private function JavascriptFile($options) {
+		foreach($options as $key => $value) {
+			$this->output .= '<script scr="'. $this->IfLib($value) .'"></script>'."\n";
 		}
 	}
 	

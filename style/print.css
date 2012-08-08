@@ -1,0 +1,38 @@
+/* Print CSS */
+html {
+	direction: rtl;}
+	
+body {
+	background: #fff none;
+	color: #000;
+	font: normal 12pt arial;
+	text-align: right;}
+a {
+	color: #000;
+	text-decoration: none;}	
+	
+/* Display NONE */
+.logo, .slogen, .last-update, .menu, .link, .footer, .no-print {
+	display: none !important;}
+	
+/* Display BLOCK */
+.block {
+	clear: both;
+	display: block;
+	float: none !important;
+	margin: 0 10%;
+	padding:0;
+	width: auto;}
+	
+.responsibilty {
+	border-bottom: 1px solid #000;
+	margin: 0 0 10px;
+	padding: 0 0 10px;}
+
+.logo  {
+	background: url('../images/logo-print.png') no-repeat 0 0;
+	display: block;
+	float: left;
+	height: 81px;
+	margin: 0 10%;
+	width: 410px;}

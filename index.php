@@ -6,9 +6,7 @@
 	
 	<?php require_once(dirname(__FILE__). '/php/febuild.class.php'); FEBuild::Run('{
 		"config": {
-			"environment": "develop",
-			"root_path": "/srv/www/test.local/public_html",
-			"version": "0.1" 
+			"environment": "develop"
 		},
 		"style": [
 			"style/common.less",
@@ -19,8 +17,8 @@
 			}
 		],
 		"javascript": [
-			"script/lib/jquery.js",
-			"script/custom.coffee",
+			"script/libs/jquery.min.js",
+			"script/common.coffee",
 			"script/general.js"
 		]
 	}'); ?>
