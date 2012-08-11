@@ -62,24 +62,24 @@
 	}
 		
 		private function Library($path, $extension = false) {
-		$extension = empty($extension) ? end(explode(".",$path)) : $extension;
+			$extension = empty($extension) ? end(explode(".",$path)) : $extension;
 			
-			switch($extension) {
-				case "less":
-					$path = $this->Less($path);
-				break;
-				case "coffee":
-					$path = $this->CoffeeScript($path);
-				break;
-				case "concat":
-					$path = $this->Concat($path, $this->settings["path"]);
-				break;
-				default:
-				break;
-			}
-		
-		return $path;
-	}
+				switch($extension) {
+					case "less":
+						$path = $this->Less($path);
+					break;
+					case "coffee":
+						$path = $this->CoffeeScript($path);
+					break;
+					case "concat":
+						$path = $this->Concat($path, $this->settings["path"]);
+					break;
+					default:
+					break;
+				}
+			
+			return $path;
+		}
 		
 		private function SetThings($options) {
 		foreach($options as $key => $value) {
@@ -88,37 +88,37 @@
 	}
 		
 		private function StyleFile($attr, $settings) {
-		$output = '';
-		
-			foreach($attr as $key => $value) {
-				$src = $this->Library(is_string($value) ? $value : $value["src"]);
-				
-				if (!$settings) {
-					$media = is_string($value) || empty($value["media"]) ? "screen" : $value["media"];
-					$output .= '<link rel="stylesheet" type="text/css" href="'. $src .'" media="'. $media .'">'."\n";
-				} else {
-					$output .= $src.",";
+			$output = '';
+			
+				foreach($attr as $key => $value) {
+					$src = $this->Library(is_string($value) ? $value : $value["src"]);
+					
+					if (!$settings) {
+						$media = is_string($value) || empty($value["media"]) ? "screen" : $value["media"];
+						$output .= '<link rel="stylesheet" type="text/css" href="'. $src .'" media="'. $media .'">'."\n";
+					} else {
+						$output .= $src.",";
+					}
 				}
-			}
-		
-		return $output;
-	}
+			
+			return $output;
+		}
 		
 		private function JavascriptFile($options, $settings) {
-		$output = '';
-		
-			foreach($options as $key => $value) {
-				$value = $this->Library($value);
-				
-				if (!$settings) {
-					$output .= '<script scr="'. $value .'"></script>'."\n";
-				} else {
-					$output .= $value.",";
-				}
-			}
+			$output = '';
 			
-		return $output;
-	}
+				foreach($options as $key => $value) {
+					$value = $this->Library($value);
+					
+					if (!$settings) {
+						$output .= '<script src="'. $value .'"></script>'."\n";
+					} else {
+						$output .= $value.",";
+					}
+				}
+				
+			return $output;
+		}
 		
 	}
 	

@@ -57,27 +57,30 @@
 			foreach($files as $file) {
 				$output[end(explode(".",$file))] .= trim(file_get_contents($file));
 			}
-			
+
 			foreach($output as $key => $value) {
-				file_put_contents($path[end(explode(".",$output[$key]))], $output[$value], FILE_APPEND);
+				$src = $path[$key].'.'.$key;
 				
-				switch($output[$key]) {
+				file_put_contents($src, $value, FILE_APPEND);
+				
+				switch($key) {
 					case "css":
-						$output[$key] = '<link rel="stylesheet" type="text/css" href="'. $value .'" media="screen">'."\n";
+						$output[$key] = '<link rel="stylesheet" type="text/css" href="'. $src .'" media="screen">'."\n";
 					break;
 					case "js":
-						$output[$key] = '<script scr="'. $value .'"></script>'."\n";
+						$output[$key] = '<script src="'. $src .'"></script>'."\n";
 					break;
 				}
 			}
-
-			echo implode("", $output);
+			return implode("", $output);
 		}
 	
-		# http://leafo.net/scssphp/
-		# https://github.com/michelf/php-markdown/
 		# http://code.google.com/p/minify/
+		# https://github.com/michelf/php-markdown/
+		# https://github.com/philipwalton/PW_Zen_Coder
+		# http://code.google.com/p/zen-php/
 		# http://code.google.com/p/cssmin/
+		# http://leafo.net/scssphp/
 		# http://code.google.com/p/phamlp/		
 	}
 ?>

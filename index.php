@@ -11,11 +11,7 @@
 		},
 		"style": [
 			"style/example.less",
-			"style/general.css",
-			{
-				"src": "style/print.css",
-				"media": "print"
-			}
+			"style/general.css"
 		],
 		"javascript": [
 			"script/libs/jquery.min.js",

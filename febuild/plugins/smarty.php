@@ -1,13 +1,11 @@
 <?php
+
+# doesn't work yet.
+
 /**
  * Smarty plugin
  * @package Smarty
  * @subpackage plugins
- */
-/**
- * 
- *  
- *  
  */
 function smarty_block_febuild( $params, $content, &$smarty, &$repeat ) {
 	if ( !$repeat && !empty($content) ) { 
