@@ -54,24 +54,25 @@
 				"js"  => ""
 			);
 			
-			foreach($files as $file) {
-				$output[end(explode(".",$file))] .= trim(file_get_contents($file));
-			}
-
-			foreach($output as $key => $value) {
-				$src = $path[$key].'.'.$key;
-				
-				file_put_contents($src, $value, FILE_APPEND);
-				
-				switch($key) {
-					case "css":
-						$output[$key] = '<link rel="stylesheet" type="text/css" href="'. $src .'" media="screen">'."\n";
-					break;
-					case "js":
-						$output[$key] = '<script src="'. $src .'"></script>'."\n";
-					break;
+				foreach($files as $file) {
+					$output[end(explode(".",$file))] .= trim(file_get_contents($file));
 				}
-			}
+	
+				foreach($output as $key => $value) {
+					$src = $path[$key].'.'.$key;
+					
+					file_put_contents($src, $value, FILE_APPEND);
+					
+					switch($key) {
+						case "css":
+							$output[$key] = '<link rel="stylesheet" type="text/css" href="'. $src .'" media="screen">'."\n";
+						break;
+						case "js":
+							$output[$key] = '<script src="'. $src .'"></script>'."\n";
+						break;
+					}
+				}
+			
 			return implode("", $output);
 		}
 	
@@ -82,5 +83,15 @@
 		# http://code.google.com/p/cssmin/
 		# http://leafo.net/scssphp/
 		# http://code.google.com/p/phamlp/		
+
+/*
+// This function is probably too simple to use: It can bite.
+
+function replace_tabs_newlines($content) {
+
+    return preg_replace('(\r|\n|\t)', '', $content);
+
+}
+*/
 	}
 ?>

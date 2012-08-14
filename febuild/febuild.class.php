@@ -81,6 +81,7 @@
 			return $path;
 		}
 		
+		# need to fix this.
 		private function SetThings($options) {
 		foreach($options as $key => $value) {
 			$this->settings[$key] = $value;
@@ -111,7 +112,7 @@
 					$value = $this->Library($value);
 					
 					if (!$settings) {
-						$output .= '<script src="'. $value .'"></script>'."\n";
+						$output .= '<script s="'. $value .'"></script>'."\n";
 					} else {
 						$output .= $value.",";
 					}
