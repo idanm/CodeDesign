@@ -4,7 +4,7 @@
 	<meta name="description" content="" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	
-	<?php require_once(dirname(__FILE__). '/febuild/febuild.class.php'); FEBuild::Run('{
+	<?php require_once(dirname(__FILE__). '/febuild/run.php'); FEBuild::Run('{
 		"config": {
 			"concat":		true
 		},
@@ -22,8 +22,8 @@
 </head><body>
 	
 	<!-- Page -->
-	<pre id="page">
+	<div id="page">
 
-	</pre>
+	</div>
 	
 </body></html>

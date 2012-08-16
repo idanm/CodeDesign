@@ -1,6 +1,6 @@
 <?php
-	require_once(dirname(__FILE__). '/febuild.interface.php'); 
-	require_once(dirname(__FILE__). '/febuild.library.php'); 
+	require_once(dirname(__FILE__). '/interface.php'); 
+	require_once(dirname(__FILE__). '/library.php'); 
 
 	/**
 	 * FEBuild
@@ -17,6 +17,7 @@
 			$this->output = "";
 			$this->settings = array(
 				"concat"		=> false,
+				"minify"		=> false,
 				"path"			=> array(
 					"css"		=> "style/common",
 					"js"		=> "script/common"
