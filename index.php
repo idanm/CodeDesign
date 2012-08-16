@@ -6,7 +6,6 @@
 	
 	<?php require_once(dirname(__FILE__). '/febuild/febuild.class.php'); FEBuild::Run('{
 		"config": {
-			"environment": 	"develop",
 			"concat":		true
 		},
 		"style": [

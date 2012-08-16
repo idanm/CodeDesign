@@ -14,7 +14,7 @@
 	*/
 	require_once(dirname(__FILE__) .'/libs/coffeescript-php/src/CoffeeScript/Init.php');
 	
-	class FEBuild_Library {
+	abstract class FEBuild_Library implements iFEBuild_Library {
 	
 		private function Sandbox($sand) {
 			try { $sand; } catch (exception $e) {
@@ -75,14 +75,18 @@
 			
 			return implode("", $output);
 		}
-	
-		# http://code.google.com/p/minify/
+		
+		public function Minify($files) {
+			
+		}
 		# https://github.com/michelf/php-markdown/
 		# https://github.com/philipwalton/PW_Zen_Coder
+		# http://code.google.com/p/minify/
 		# http://code.google.com/p/zen-php/
 		# http://code.google.com/p/cssmin/
 		# http://leafo.net/scssphp/
-		# http://code.google.com/p/phamlp/		
+		# http://code.google.com/p/phamlp/
+		# http://imsky.github.com/holder/
 
 /*
 // This function is probably too simple to use: It can bite.
