@@ -1,84 +1,119 @@
 <?php
 	
-	/*  
-	LESS compiler written in PHP
-	URL https://github.com/leafo/lessphp
-	Coded By Leaf Corcoran (leafo)
-	*/
+	##  
+	# LESS compiler written in PHP
+	# URL https://github.com/leafo/lessphp
+	# Coded By Leaf Corcoran (leafo)
+	##
 	require_once(dirname(__FILE__) .'/libs/lessphp/lessc.inc.php');
 	
-	/*
-	A port of the CoffeeScript compiler to PHP
-	URL https://github.com/alxlit/coffeescript-php
-	Coded By Alex Little (alxlit)
-	*/
+	##
+	# A port of the CoffeeScript compiler to PHP
+	# URL https://github.com/alxlit/coffeescript-php
+	# Coded By Alex Little (alxlit)
+	##
 	require_once(dirname(__FILE__) .'/libs/coffeescript-php/src/CoffeeScript/Init.php');
 	
-	abstract class FEBuild_Library implements iFEBuild_Library {
-	
-		private function Sandbox($sand) {
-			try { $sand; } catch (exception $e) {
-				exit('fatal error:<br />'.$e->getMessage());
-			}
-		}
+	class FEBuild_Library implements iFEBuild_Library {
 		
-		public function Less($path) {
+		public static function Less($path) {
 			$_path = explode(".", $path);
 			$_path[count($_path) -1] = "css";
 			$output = implode(".", $_path);
 
-				$this->Sandbox(lessc::ccompile($path, $output));
-			
+				FEBuild_Moo::Sandbox(lessc::ccompile($path, $output));
+				
 			return $output;
 		}
 		
-		public function CoffeeScript($path) {
+		public static function CoffeeScript($path) {
 			$_path = explode(".", $path);
 			$_path[count($_path) -1] = "js";
 			$output = "";
 			
-			CoffeeScript\Init::load();
+				CoffeeScript\Init::load();
 			
-				$this->Sandbox($output = CoffeeScript\Compiler::compile(file_get_contents($path), array('filename' => $path)));
+				FEBuild_Moo::Sandbox(
+					$output = CoffeeScript\Compiler::compile(file_get_contents($path), array('filename' => $path))
+				);
+				
 				$path = implode(".", $_path);
 				file_put_contents($path, $output);
 				
 			return $path;
 		}
 	
-		public function Concat($files, $path) {
-			$files = explode(",", $files);
-				unset($files[count($files) -1]);
-			$output = array(
-				"css" => "",
-				"js"  => ""
-			);
+		public static function Concat($files, $path) {
+			$content = "";
+			$output = "";
 			
-				foreach($files as $file) {
-					$output[end(explode(".",$file))] .= trim(file_get_contents($file));
+				foreach($files as $key => $file) {
+					#FEBuild_Moo::Debug($key);
+					$content .= trim(file_get_contents($file));
+					if ($files[$key] == 0) $output = $path.".".end(explode(".",$file));
 				}
-	
-				foreach($output as $key => $value) {
-					$src = $path[$key].'.'.$key;
+			
+				FEBuild_Moo::Sandbox(file_put_contents($output, $content));
+			
+			return $output;
+		}
+		
+		public static function Minify($files) {
+			
+		}
+		
+		public static function StylesheetFile($files, $path, $concat = false, $minify = false) {
+			$output = "";
+			
+				foreach($files as $key => $file) {
+					if (end(explode(".",$file)) == "less") {
+						$files[$key] = self::Less($file);
+					}
+				}
+				
+				if ($concat == true) {
+					$output = self::Concat($files, $path);
 					
-					file_put_contents($src, $value, FILE_APPEND);
+					if ($minify == true) {
+						$output = self::Minify($output);
+					}
 					
-					switch($key) {
-						case "css":
-							$output[$key] = '<link rel="stylesheet" type="text/css" href="'. $src .'" media="screen">'."\n";
-						break;
-						case "js":
-							$output[$key] = '<script src="'. $src .'"></script>'."\n";
-						break;
+					$output = '<link rel="stylesheet" type="text/css" href="'. $output .'" media="screen">';
+				} else {
+					foreach($files as $file) {
+						$output .= '<link rel="stylesheet" type="text/css" href="'. $file .'" media="screen">'; 
 					}
 				}
 			
-			return implode("", $output);
+			return $output;
 		}
 		
-		public function Minify($files) {
+		public static function JavascriptFile($files, $path, $concat = false, $minify = false) {
+			$output = "";
 			
+				foreach($files as $key => $file) {
+					if (end(explode(".",$file)) == "coffee") {
+						$files[$key] = self::CoffeeScript($file);
+					}
+				}
+				
+				if ($concat == true) {
+					$output = self::Concat($files, $path);
+					
+					if ($minify == true) {
+						$output = self::Minify($output);
+					}
+					
+					$output = '<script src="'. $output .'"></script>';
+				} else {
+					foreach($files as $file) {
+						$output .= '<script src="'. $file .'"></script>'; 
+					}
+				}
+			
+			return $output;
 		}
+		
 		# https://github.com/michelf/php-markdown/
 		# https://github.com/philipwalton/PW_Zen_Coder
 		# http://code.google.com/p/minify/

@@ -6,9 +6,9 @@
 	
 	<?php require_once(dirname(__FILE__). '/febuild/run.php'); FEBuild::Run('{
 		"config": {
-			"concat":		true
+			"concat": true
 		},
-		"style": [
+		"stylesheet": [
 			"style/example.less",
 			"style/general.css"
 		],

@@ -1,7 +1,4 @@
 <?php
-	require_once(dirname(__FILE__). '/interface.php'); 
-	require_once(dirname(__FILE__). '/library.php'); 
-	require_once(dirname(__FILE__). '/maintain.php'); 
 
 	##
 	# FEBuild
@@ -9,7 +6,17 @@
 	# 
 	# @author idanm
 	##
-	class FEBuild extends FEBuild_Library {
+	
+	
+	##
+	# System Files
+	##
+	require_once(dirname(__FILE__). '/interface.php');
+	require_once(dirname(__FILE__). '/maintenance.php');
+	require_once(dirname(__FILE__). '/library.php');
+	
+	#
+	class FEBuild implements iFEBuild {
 		private $input, $output, $settings;
 		
 		public function __construct() {
@@ -21,69 +28,28 @@
 				"path"			=> array(
 					"css"		=> "style/common",
 					"js"		=> "script/common"
-				),
-				"version"		=> "0.1"
+				)
 			);
 		}
 		
 		public static function Run($json) {
 			if (!empty($json)) {
-				$self = new FEBuild(); return $self->Lab($json);
+				$self = new FEBuild(); return $self->Laboratory($json);
 			}
 		}
 		
-		private function Lab($input) {
+		private function Laboratory($input) {
 			$this->input = json_decode($input, true, 9);
 			
 				foreach($this->input as $settings => $options) {
-					switch($settings) {
-						case "config":
-							$this->SetThings($options);
-						break;
-						case "style":
-							$this->output .= $this->StyleFile($options, $this->settings["concat"]);
-						break;
-						case "javascript":
-							$this->output .= $this->JavascriptFile($options, $this->settings["concat"]);
-						break;
-						default: 
-							echo "No ${options} Options!";
-						break;
-					}
-				}
-				
-				if ($this->settings["concat"]) {
-					$this->output = $this->Library($this->output, 'concat');
-					
-					if ($this->settings["minify"]) {
-						$this->output = $this->Library($this->output, 'minify');
+					if ($settings == "config") {
+						$this->SetThings($options);						
+					} else {
+						$this->output .= $this->Library($settings, $options);
 					}
 				}
 	
 			echo $this->output;
-		}
-		
-		private function Library($path, $extension = false) {
-			$extension = empty($extension) ? end(explode(".",$path)) : $extension;
-			
-				switch($extension) {
-					case "less":
-						$path = $this->Less($path);
-					break;
-					case "coffee":
-						$path = $this->CoffeeScript($path);
-					break;
-					case "concat":
-						$path = $this->Concat($path, $this->settings["path"]);
-					break;
-					case "minify":
-						$path = $this->Minify($path);
-					break;
-					default:
-					break;
-				}
-			
-			return $path;
 		}
 		
 		private function SetThings($options) {
@@ -94,36 +60,20 @@
 			}
 		}
 		
-		private function StyleFile($attr, $settings) {
-			$output = '';
+		private function Library($markup, $files) {
+			$output = "";
 			
-				foreach($attr as $key => $value) {
-					$src = $this->Library(is_string($value) ? $value : $value["src"]);
-					
-					if (!$settings) {
-						$media = is_string($value) || empty($value["media"]) ? "screen" : $value["media"];
-						$output .= '<link rel="stylesheet" type="text/css" href="'. $src .'" media="'. $media .'">'."\n";
-					} else {
-						$output .= $src.",";
-					}
+				switch($markup) {
+					case "stylesheet":
+						$output = FEBuild_Library::StylesheetFile($files, $this->settings["path"]["css"], $this->settings["concat"], $this->settings["minify"]);
+					break;
+					case "javascript":
+						$output = FEBuild_Library::JavascriptFile($files, $this->settings["path"]["js"], $this->settings["concat"], $this->settings["minify"]);
+					break;
+					default:
+					break;
 				}
 			
-			return $output;
-		}
-		
-		private function JavascriptFile($options, $settings) {
-			$output = '';
-			
-				foreach($options as $key => $value) {
-					$value = $this->Library($value);
-					
-					if (!$settings) {
-						$output .= '<script s="'. $value .'"></script>'."\n";
-					} else {
-						$output .= $value.",";
-					}
-				}
-				
 			return $output;
 		}
 		

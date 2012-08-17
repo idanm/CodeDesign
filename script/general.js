@@ -1,5 +1,5 @@
 ;(function($) {
-	$('body').click(function{
+	$('body').click(function(){
 		console.log('horay!!!');
 	});
 });
