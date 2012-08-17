@@ -1,14 +1,14 @@
 <?php
 	require_once(dirname(__FILE__). '/interface.php'); 
 	require_once(dirname(__FILE__). '/library.php'); 
+	require_once(dirname(__FILE__). '/maintain.php'); 
 
-	/**
-	 * FEBuild
-	 * deploying easily styles and javascript files in php environment.
-	 * 
-	 * @author idanm
-	 * @version 0.1
-	*/
+	##
+	# FEBuild
+	# deploying easily styles and javascript files in php environment.
+	# 
+	# @author idanm
+	##
 	class FEBuild extends FEBuild_Library {
 		private $input, $output, $settings;
 		
@@ -60,16 +60,7 @@
 					}
 				}
 	
-			echo $this->Log()->output;
-		}
-		
-		private function Log() {
-			if (!empty($_GET["log"])) {
-				$moo = "Big Cow, Says Mooo !!!";
-				$this->output .= '<script>console.log("'. $moo .'");</script>';
-			}
-			
-			return $this;
+			echo $this->output;
 		}
 		
 		private function Library($path, $extension = false) {

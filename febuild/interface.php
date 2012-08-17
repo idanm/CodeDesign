@@ -7,4 +7,9 @@
 		public function Minify($path);
 	}
 	
+	interface iFEBuild_Maintain {
+		public static function Log();
+		public static function Debug();
+	}
+	
 ?>
