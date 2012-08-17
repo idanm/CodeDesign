@@ -3,16 +3,30 @@
 	##  
 	# LESS compiler written in PHP
 	# URL https://github.com/leafo/lessphp
-	# Coded By Leaf Corcoran (leafo)
+	# Coded By leafo (Leaf Corcoran)
 	##
 	require_once(dirname(__FILE__) .'/libs/lessphp/lessc.inc.php');
 	
 	##
 	# A port of the CoffeeScript compiler to PHP
 	# URL https://github.com/alxlit/coffeescript-php
-	# Coded By Alex Little (alxlit)
+	# Coded By alxlit (Alex Little)
 	##
 	require_once(dirname(__FILE__) .'/libs/coffeescript-php/src/CoffeeScript/Init.php');
+	
+	##
+	# A (simple) css minifier with benefits
+	# URL https://github.com/brunschgi/cssmin
+	# Coded By brunschgi (Remo Brunschwiler)
+	##
+	require_once(dirname(__FILE__) .'/libs/cssmin/cssmin.php');
+	
+	##
+	# UNMAINTAINED PHP port of Douglas Crockford's JSMin JavaScript minifier.
+	# URL https://github.com/rgrove/jsmin-php
+	# Coded By rgrove (Ryan Grove)
+	##
+	require_once(dirname(__FILE__) .'/libs/jsmin-php/jsmin.php');
 	
 	class FEBuild_Library implements iFEBuild_Library {
 		
@@ -48,7 +62,6 @@
 			$output = "";
 			
 				foreach($files as $key => $file) {
-					#FEBuild_Moo::Debug($key);
 					$content .= trim(file_get_contents($file));
 					if ($files[$key] == 0) $output = $path.".".end(explode(".",$file));
 				}
@@ -58,8 +71,26 @@
 			return $output;
 		}
 		
-		public static function Minify($files) {
+		public static function Minify($file, $path) {
+			$extension = end(explode(".",$file));
+			$output = $path.'.min.'.$extension;
 			
+				switch($extension) {
+					case "css":
+						FEBuild_Moo::Sandbox(
+							file_put_contents($output, CssMin::minify(file_get_contents($file)))
+						);
+					break;
+					case "js":
+						FEBuild_Moo::Sandbox(
+							file_put_contents($output, JSMin::minify(file_get_contents($file)))
+						);						
+					break;
+					default:
+					break;
+				}
+			
+			return $output;
 		}
 		
 		public static function StylesheetFile($files, $path, $concat = false, $minify = false) {
@@ -75,7 +106,7 @@
 					$output = self::Concat($files, $path);
 					
 					if ($minify == true) {
-						$output = self::Minify($output);
+						$output = self::Minify($output, $path);
 					}
 					
 					$output = '<link rel="stylesheet" type="text/css" href="'. $output .'" media="screen">';
@@ -101,7 +132,7 @@
 					$output = self::Concat($files, $path);
 					
 					if ($minify == true) {
-						$output = self::Minify($output);
+						$output = self::Minify($output, $path);
 					}
 					
 					$output = '<script src="'. $output .'"></script>';
