@@ -70,9 +70,6 @@
 					case "javascript":
 						$output = Library::JavascriptFile($files, $this->settings["path"]["js"], $this->settings["concat"], $this->settings["minify"]);
 					break;
-					case "content":
-						static::$content_folder = $files;
-					break;
 					default:
 					break;
 				}
