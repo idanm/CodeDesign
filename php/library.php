@@ -1,14 +1,14 @@
 <?php
 	
 	##  
-	# LESS compiler written in PHP
+	# LESS compiler written in PHP.
 	# URL https://github.com/leafo/lessphp
 	# Coded By leafo (Leaf Corcoran)
 	##
 	require_once(dirname(__FILE__) .'/libs/lessphp/lessc.inc.php');
 	
 	##
-	# A port of the CoffeeScript compiler to PHP
+	# A port of the CoffeeScript compiler to PHP.
 	# URL https://github.com/alxlit/coffeescript-php
 	# Coded By alxlit (Alex Little)
 	##
@@ -29,7 +29,7 @@
 	require_once(dirname(__FILE__) .'/libs/jsmin-php/jsmin.php');
 	
 	##
-	# UNMAINTAINED PHP port of Douglas Crockford's JSMin JavaScript minifier.
+	# PHP Markdown is a port to PHP of the Markdown perl script by John Grubber.
 	# URL https://github.com/michelf/php-markdown
 	# Coded By michelf (Michel Fortin)
 	##

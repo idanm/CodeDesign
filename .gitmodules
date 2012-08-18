@@ -1,0 +1,19 @@
+[submodule "php/libs/lessphp"]
+    path = php/libs/lessphp
+    url = git://github.com/leafo/lessphp.git
+    
+[submodule "php/libs/coffeescript-php"]
+    path = php/libs/coffeescript-php
+    url = git://github.com/alxlit/coffeescript-php.git
+    
+[submodule "php/libs/cssmin"]
+    path = php/libs/cssmin
+    url = git://github.com/brunschgi/cssmin.git
+    
+[submodule "php/libs/jsmin-php"]
+    path = php/libs/jsmin-php
+    url = git://github.com/rgrove/jsmin-php.git
+    
+[submodule "php/libs/php-markdown"]
+    path = php/libs/php-markdown
+    url = git://github.com/michelf/php-markdown.git
