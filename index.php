@@ -6,17 +6,17 @@
 	
 	<?php require_once(dirname(__FILE__). '/php/run.php'); CodeDesign::Run('{
 		"config": {
-			"concat": false,
+			"concat": true,
 			"minify": false
 		},
 		"stylesheet": [
 			"style/libs/bootstrap.min.css",
-			"style/common.less"
+			"style/custom.less"
 		],
 		"javascript": [
 			"script/libs/jquery.min.js",
 			"script/libs/bootstrap.min.js",
-			"script/common.js"
+			"script/custom.js"
 		]
 	}'); ?>
 	

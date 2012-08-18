@@ -59,7 +59,7 @@
 				);
 				
 				$path = implode(".", $_path);
-				file_put_contents($path, $output);
+				file_put_contents($path, $output, LOCK_EX);
 				
 			return $path;
 		}
@@ -73,7 +73,9 @@
 					if ($files[$key] == 0) $output = $path.".".end(explode(".",$file));
 				}
 			
-				Moo::Sandbox(file_put_contents($output, $content));
+				Moo::Sandbox(
+					file_put_contents($output, $content, LOCK_EX)
+				);
 			
 			return $output;
 		}
@@ -85,12 +87,12 @@
 				switch($extension) {
 					case "css":
 						Moo::Sandbox(
-							file_put_contents($output, CssMin::minify(file_get_contents($file)))
+							file_put_contents($output, CssMin::minify(file_get_contents($file)), LOCK_EX)
 						);
 					break;
 					case "js":
 						Moo::Sandbox(
-							file_put_contents($output, JSMin::minify(file_get_contents($file)))
+							file_put_contents($output, JSMin::minify(file_get_contents($file)), LOCK_EX)
 						);						
 					break;
 					default:
