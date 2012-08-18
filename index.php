@@ -1,31 +1,54 @@
 <!DOCTYPE HTML><html><head>
-	<title>FEBuild - </title>
+	<title>{...} CodeDesign - deploying easily stylesheet, javascript and markdown files in php environment.</title>
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	
-	<?php require_once(dirname(__FILE__). '/febuild/run.php'); FEBuild::Run('{
+	<?php require_once(dirname(__FILE__). '/php/run.php'); CodeDesign::Run('{
 		"config": {
-			"concat": true,
-			"minify": true
+			"concat": false,
+			"minify": false
 		},
 		"stylesheet": [
-			"style/example.less",
-			"style/general.css"
+			"style/libs/bootstrap.min.css",
+			"style/common.less"
 		],
 		"javascript": [
 			"script/libs/jquery.min.js",
-			"script/example.coffee",
-			"script/general.js"
-		],
-		"content": "markdown/"
+			"script/libs/bootstrap.min.js",
+			"script/common.js"
+		]
 	}'); ?>
 	
-</head><body>
+</head><body id="top">
 	
 	<!-- Page -->
-	<div id="page">
-		<?php echo FEBuild::Content('cheat_sheet'); ?>
-	</div>
+	<section id="page" class="container">
+		<header class="clearfix">
+			<?php echo CodeDesign::Content('markdown/header'); ?>
+			
+			<div class="btn-group">
+				<a class="btn btn-success btn-large dropdown-toggle" data-toggle="dropdown" href="#">
+					Github
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a href="https://github.com/idanm/CodeDesign/zipball/master">הורדת קובץ Zip</a></li>
+					<li><a href="https://github.com/idanm/CodeDesign/">עמוד Github</a></li>
+				</ul>
+			</div>
+		</header>
+		
+		<article class="well">
+			<?php echo CodeDesign::Content('markdown/content'); ?>
+			
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bit.ly/PvVSB7" data-counturl="http://bit.ly/PvVSB7" data-lang="en" data-count="vertical">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</article>
+			
+		<footer>
+			<?php echo CodeDesign::Content('markdown/footer'); ?>
+		</footer>
+	</section>
 	
 </body></html>

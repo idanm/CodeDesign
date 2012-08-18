@@ -4,7 +4,7 @@
 	# Moo is a maintenance class.
 	##
 	
-	class FEBuild_Moo implements iFEBuild_Moo {
+	class Moo implements iMoo {
 	
 		public static function Log() {
 			$output = "";

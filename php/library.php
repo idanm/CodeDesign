@@ -35,14 +35,14 @@
 	##
 	require_once(dirname(__FILE__) .'/libs/php-markdown/markdown.php');
 	
-	class FEBuild_Library implements iFEBuild_Library {
+	class Library implements iLibrary {
 		
 		public static function Less($path) {
 			$_path = explode(".", $path);
 			$_path[count($_path) -1] = "css";
 			$output = implode(".", $_path);
 
-				FEBuild_Moo::Sandbox(lessc::ccompile($path, $output));
+				Moo::Sandbox(lessc::ccompile($path, $output));
 				
 			return $output;
 		}
@@ -54,7 +54,7 @@
 			
 				CoffeeScript\Init::load();
 			
-				FEBuild_Moo::Sandbox(
+				Moo::Sandbox(
 					$output = CoffeeScript\Compiler::compile(file_get_contents($path), array('filename' => $path))
 				);
 				
@@ -73,7 +73,7 @@
 					if ($files[$key] == 0) $output = $path.".".end(explode(".",$file));
 				}
 			
-				FEBuild_Moo::Sandbox(file_put_contents($output, $content));
+				Moo::Sandbox(file_put_contents($output, $content));
 			
 			return $output;
 		}
@@ -84,12 +84,12 @@
 			
 				switch($extension) {
 					case "css":
-						FEBuild_Moo::Sandbox(
+						Moo::Sandbox(
 							file_put_contents($output, CssMin::minify(file_get_contents($file)))
 						);
 					break;
 					case "js":
-						FEBuild_Moo::Sandbox(
+						Moo::Sandbox(
 							file_put_contents($output, JSMin::minify(file_get_contents($file)))
 						);						
 					break;
@@ -100,9 +100,9 @@
 			return $output;
 		}
 		
-		public static function Markdown($path, $filename) {
-			$output = FEBuild_Moo::Sandbox(
-				Markdown(file_get_contents($path.$filename.".md"))
+		public static function Markdown($path) {
+			$output = Moo::Sandbox(
+				Markdown(file_get_contents($path.".md"))
 			);
 			return $output;
 		}
@@ -161,13 +161,8 @@
 			return $output;
 		}
 		
-		# https://github.com/michelf/php-markdown/
 		# https://github.com/philipwalton/PW_Zen_Coder
-		# http://code.google.com/p/minify/
 		# http://code.google.com/p/zen-php/
-		# http://code.google.com/p/cssmin/
-		# http://leafo.net/scssphp/
-		# http://code.google.com/p/phamlp/
 		# http://imsky.github.com/holder/
 
 /*

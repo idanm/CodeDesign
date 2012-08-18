@@ -16,12 +16,10 @@
 	require_once(dirname(__FILE__). '/library.php');
 	
 	#
-	class FEBuild implements iFEBuild {
-		public static $content_folder;
+	class CodeDesign implements iCodeDesign {
 		private $input, $output, $settings;
 		
 		public function __construct() {
-			static::$content_folder = false;
 			$this->input = "";
 			$this->output = "";
 			$this->settings = array(
@@ -36,7 +34,7 @@
 		
 		public static function Run($json) {
 			if (!empty($json)) {
-				$self = new FEBuild(); return $self->Laboratory($json);
+				$self = new CodeDesign(); return $self->Laboratory($json);
 			}
 		}
 		
@@ -67,10 +65,10 @@
 			
 				switch($markup) {
 					case "stylesheet":
-						$output = FEBuild_Library::StylesheetFile($files, $this->settings["path"]["css"], $this->settings["concat"], $this->settings["minify"]);
+						$output = Library::StylesheetFile($files, $this->settings["path"]["css"], $this->settings["concat"], $this->settings["minify"]);
 					break;
 					case "javascript":
-						$output = FEBuild_Library::JavascriptFile($files, $this->settings["path"]["js"], $this->settings["concat"], $this->settings["minify"]);
+						$output = Library::JavascriptFile($files, $this->settings["path"]["js"], $this->settings["concat"], $this->settings["minify"]);
 					break;
 					case "content":
 						static::$content_folder = $files;
@@ -83,15 +81,9 @@
 		}
 		
 		public static function Content($context) {
-			$output = "";
-			
-				if (static::$content_folder) {
-					$output = FEBuild_Library::Markdown(static::$content_folder, $context);
-				} else {
-					$output = "have no {$context} markdown files.";
-				}
-				
-			return $output;
+			return Moo::Sandbox(
+				Library::Markdown($context)
+			);
 		}
 		
 	}
