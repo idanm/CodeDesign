@@ -69,7 +69,7 @@
 			$output = "";
 			
 				foreach($files as $key => $file) {
-					$content .= trim(file_get_contents($file));
+					$content .= trim(file_get_contents($file))."\n\n";
 					if ($files[$key] == 0) $output = $path.".".end(explode(".",$file));
 				}
 			
