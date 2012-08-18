@@ -22,11 +22,9 @@
 		}
 		
 		public static function Sandbox($sand) {
-			try { $sand; } catch (exception $e) {
+			try { return $sand; } catch (exception $e) {
 				exit('fatal error:<br />'.$e->getMessage());
 			}
-			
-			return $sand;
 		}
 	
 	}
