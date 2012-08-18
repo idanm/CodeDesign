@@ -17,11 +17,11 @@
 	
 	#
 	class FEBuild implements iFEBuild {
-		public static $markdown;
+		public static $content_folder;
 		private $input, $output, $settings;
 		
 		public function __construct() {
-			static::$markdown = false;
+			static::$content_folder = false;
 			$this->input = "";
 			$this->output = "";
 			$this->settings = array(
@@ -72,8 +72,8 @@
 					case "javascript":
 						$output = FEBuild_Library::JavascriptFile($files, $this->settings["path"]["js"], $this->settings["concat"], $this->settings["minify"]);
 					break;
-					case "markdown":
-						static::$markdown = $files;
+					case "content":
+						static::$content_folder = $files;
 					break;
 					default:
 					break;
@@ -85,8 +85,8 @@
 		public static function Content($context) {
 			$output = "";
 			
-				if (static::$markdown) {
-					$output = FEBuild_Library::Markdown(static::$markdown, $context);
+				if (static::$content_folder) {
+					$output = FEBuild_Library::Markdown(static::$content_folder, $context);
 				} else {
 					$output = "have no {$context} markdown files.";
 				}

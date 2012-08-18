@@ -18,7 +18,7 @@
 			"script/example.coffee",
 			"script/general.js"
 		],
-		"markdown": "markdown/"
+		"content": "markdown/"
 	}'); ?>
 	
 </head><body>
