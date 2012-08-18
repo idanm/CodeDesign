@@ -17,14 +17,15 @@
 			"script/libs/jquery.min.js",
 			"script/example.coffee",
 			"script/general.js"
-		]
+		],
+		"markdown": "markdown/"
 	}'); ?>
 	
 </head><body>
 	
 	<!-- Page -->
 	<div id="page">
-
+		<?php echo FEBuild::Content('cheat_sheet'); ?>
 	</div>
 	
 </body></html>

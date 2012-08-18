@@ -28,6 +28,13 @@
 	##
 	require_once(dirname(__FILE__) .'/libs/jsmin-php/jsmin.php');
 	
+	##
+	# UNMAINTAINED PHP port of Douglas Crockford's JSMin JavaScript minifier.
+	# URL https://github.com/michelf/php-markdown
+	# Coded By michelf (Michel Fortin)
+	##
+	require_once(dirname(__FILE__) .'/libs/php-markdown/markdown.php');
+	
 	class FEBuild_Library implements iFEBuild_Library {
 		
 		public static function Less($path) {
@@ -93,7 +100,15 @@
 			return $output;
 		}
 		
+		public static function Markdown($path, $filename) {
+			$output = FEBuild_Moo::Sandbox(
+				Markdown(file_get_contents($path.$filename.".md"))
+			);
+			return $output;
+		}
+		
 		public static function StylesheetFile($files, $path, $concat = false, $minify = false) {
+			$tag = '<link rel="stylesheet" type="text/css" href="#path" media="screen">';
 			$output = "";
 			
 				foreach($files as $key => $file) {
@@ -109,10 +124,10 @@
 						$output = self::Minify($output, $path);
 					}
 					
-					$output = '<link rel="stylesheet" type="text/css" href="'. $output .'" media="screen">';
+					$output = str_replace("#path", $output, $tag);
 				} else {
 					foreach($files as $file) {
-						$output .= '<link rel="stylesheet" type="text/css" href="'. $file .'" media="screen">'; 
+						$output .= str_replace("#path", $file, $tag);
 					}
 				}
 			
@@ -120,6 +135,7 @@
 		}
 		
 		public static function JavascriptFile($files, $path, $concat = false, $minify = false) {
+			$tag = '<script src="#path"></script>';
 			$output = "";
 			
 				foreach($files as $key => $file) {
@@ -135,10 +151,10 @@
 						$output = self::Minify($output, $path);
 					}
 					
-					$output = '<script src="'. $output .'"></script>';
+					$output = str_replace("#path", $output, $tag);
 				} else {
 					foreach($files as $file) {
-						$output .= '<script src="'. $file .'"></script>'; 
+						$output .= str_replace("#path", $file, $tag);
 					}
 				}
 			

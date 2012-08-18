@@ -25,6 +25,8 @@
 			try { $sand; } catch (exception $e) {
 				exit('fatal error:<br />'.$e->getMessage());
 			}
+			
+			return $sand;
 		}
 	
 	}
