@@ -80,25 +80,37 @@
 			return $output;
 		}
 		
-		public static function Minify($file, $path) {
-			$extension = end(explode(".",$file));
-			$output = $path.'.min.'.$extension;
+		public static function Minify($files, $path) {
+			$extension = "";
+			$content = "";
+			$output = "";
 			
-				switch($extension) {
-					case "css":
-						Moo::Sandbox(
-							file_put_contents($output, CssMin::minify(file_get_contents($file)), LOCK_EX)
-						);
-					break;
-					case "js":
-						Moo::Sandbox(
-							file_put_contents($output, JSMin::minify(file_get_contents($file)), LOCK_EX)
-						);						
-					break;
-					default:
-					break;
+				foreach($files as $key => $file) {
+					if ($files[$key] == 0) {
+						$extension = end(explode(".",$file));
+						$output = $path.'.min.'.$extension;
+					}
+					
+					switch($extension) {
+						case "css":
+							$content .= Moo::Sandbox(
+								CssMin::minify(file_get_contents($file))
+							)."\n\n";
+						break;
+						case "js":
+							$content .= Moo::Sandbox(
+								JSMin::minify(file_get_contents($file))
+							)."\n\n";
+						break;
+						default:
+						break;
+					}
 				}
-			
+				
+				Moo::Sandbox(
+					file_put_contents($output, $content, LOCK_EX)
+				);
+				
 			return $output;
 		}
 		
@@ -119,14 +131,10 @@
 					}
 				}
 				
-				if ($concat == true) {
-					$output = self::Concat($files, $path);
-					
-					if ($minify == true) {
-						$output = self::Minify($output, $path);
-					}
-					
-					$output = str_replace("#path", $output, $tag);
+				if ($concat === true && $minify === false) {
+					$output = str_replace("#path", self::Concat($files, $path), $tag);
+				} else if ($minify === true) {
+					$output = str_replace("#path", self::Minify($files, $path), $tag);
 				} else {
 					foreach($files as $file) {
 						$output .= str_replace("#path", $file, $tag);
@@ -146,14 +154,10 @@
 					}
 				}
 				
-				if ($concat == true) {
-					$output = self::Concat($files, $path);
-					
-					if ($minify == true) {
-						$output = self::Minify($output, $path);
-					}
-					
-					$output = str_replace("#path", $output, $tag);
+				if ($concat == true && $minify === false) {
+					$output = str_replace("#path", self::Concat($files, $path), $tag);
+				} else if ($minify === true) {
+					$output = str_replace("#path", self::Minify($files, $path), $tag);
 				} else {
 					foreach($files as $file) {
 						$output .= str_replace("#path", $file, $tag);
