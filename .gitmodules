@@ -17,3 +17,6 @@
 [submodule "php/libs/php-markdown"]
     path = php/libs/php-markdown
     url = git://github.com/michelf/php-markdown.git
+[submodule "style/libs/bootstrap"]
+    path = style/libs/bootstrap"
+    url = git://github.com/twitter/bootstrap.git

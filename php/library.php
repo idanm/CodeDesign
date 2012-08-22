@@ -40,11 +40,19 @@
 		public static function Less($path) {
 			$_path = explode(".", $path);
 			$_path[count($_path) -1] = "css";
-			$output = implode(".", $_path);
+			$output = "";
 
-				Moo::Sandbox(lessc::ccompile($path, $output));
+				$less = new lessc;
 				
-			return $output;
+				Moo::Sandbox(
+					$output = $less->compileFile($path)
+				);
+
+				$path = implode(".", $_path);
+				file_put_contents($path, $output, LOCK_EX);
+								
+				
+			return $path;
 		}
 		
 		public static function CoffeeScript($path) {
@@ -66,35 +74,28 @@
 	
 		public static function Concat($files, $path) {
 			$content = "";
-			$output = "";
 			
 				foreach($files as $key => $file) {
 					$content .= trim(file_get_contents($file))."\n\n";
-					if ($files[$key] == 0) $output = $path.".".end(explode(".",$file));
 				}
 			
 				Moo::Sandbox(
-					file_put_contents($output, $content, LOCK_EX)
+					file_put_contents($path, $content, LOCK_EX)
 				);
 			
-			return $output;
+			return $path;
 		}
 		
 		public static function Minify($files, $path) {
-			$extension = "";
+			$extension = end(explode(".",$path));
+			$path = str_replace(".".$extension, ".min.".$extension, $path);
 			$content = "";
-			$output = "";
 			
 				foreach($files as $key => $file) {
-					if ($files[$key] == 0) {
-						$extension = end(explode(".",$file));
-						$output = $path.'.min.'.$extension;
-					}
-					
 					switch($extension) {
 						case "css":
 							$content .= Moo::Sandbox(
-								CssMin::minify(file_get_contents($file))
+								CssMin::minify(file_get_contents($file), array("RemoveComments" => false))
 							)."\n\n";
 						break;
 						case "js":
@@ -108,15 +109,15 @@
 				}
 				
 				Moo::Sandbox(
-					file_put_contents($output, $content, LOCK_EX)
+					file_put_contents($path, $content, LOCK_EX)
 				);
 				
-			return $output;
+			return $path;
 		}
 		
 		public static function Markdown($path) {
-			$output = Moo::Sandbox(
-				Markdown(file_get_contents($path.".md"))
+			Moo::Sandbox(
+				$output = Markdown(file_get_contents($path.".md"))
 			);
 			return $output;
 		}
