@@ -12,7 +12,7 @@
     
 [submodule "php/libs/jsmin-php"]
     path = php/libs/jsmin-php
-    url = git://github.com/rgrove/jsmin-php.git
+    url = git://github.com/eriknyk/jsmin-php.git
     
 [submodule "php/libs/php-markdown"]
     path = php/libs/php-markdown

@@ -4,26 +4,27 @@
 	<meta name="description" content="" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	
-<?php require_once(dirname(__FILE__). '/php/run.php'); CodeDesign::Run('{
-	"config": {
-		"concat": true,
-		"minify": true,
-		"path": {
-			"css": "style/common.css",
-			"js": "script/common.js",
-			"content": "content/default/"
-		}
-	},
-	"stylesheet": [
-		"style/custom.less",
-		"style/libs/bootstrap/bootstrap.min.css"
-	],
-	"javascript": [
-		"script/libs/jquery.min.js",
-		"script/libs/bootstrap.min.js",
-		"script/custom.js"
-	]
-}'); ?>
+	<?php require_once(dirname(__FILE__). '/php/run.php'); CodeDesign::Run('{
+		"config": {
+			"concat": true,
+			"minify": true,
+			"path": {
+				"css": "style/common.css",
+				"js": "script/common.js",
+				"content": "content/default/"
+			}
+		},
+		"stylesheet": [
+			"style/custom.less",
+			"style/libs/bootstrap/bootstrap.min.css"
+		],
+		"javascript": [
+			"script/libs/modernizr.min.js",
+			"script/libs/jquery.min.js",
+			"script/libs/bootstrap.min.js",
+			"script/custom.js"
+		]
+	}'); ?>
 	
 </head><body id="top">
 	
