@@ -6,6 +6,7 @@
 	
 	<?php require_once(dirname(__FILE__). '/php/run.php'); CodeDesign::Run('{
 		"config": {
+			"cache":  false,
 			"concat": true,
 			"minify": true,
 			"path": {

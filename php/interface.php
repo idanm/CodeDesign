@@ -10,6 +10,7 @@
 		public static function Log();
 		public static function Debug($crazy_stuff);
 		public static function SandBox($sand);
+		public static function Cache($file, $switch);
 	}
 	
 	interface iLibrary {
@@ -18,8 +19,8 @@
 		public static function Concat($files, $path);
 		public static function Minify($file, $path);
 		public static function Markdown($path);
-		public static function StylesheetFile($files, $path, $concat = false, $minify = false);
-		public static function JavascriptFile($files, $path, $concat = false, $minify = false);
+		public static function StylesheetFile($files, $options);
+		public static function JavascriptFile($files, $options);
 	}
 	
 ?>

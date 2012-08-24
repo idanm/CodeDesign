@@ -94,14 +94,14 @@
 				foreach($files as $key => $file) {
 					switch($extension) {
 						case "css":
-							$content .= Moo::Sandbox(
-								CssMin::minify(file_get_contents($file), array("RemoveComments" => false))
-							)."\n\n";
+							Moo::Sandbox(
+								$content .= CssMin::minify(file_get_contents($file), array("RemoveComments" => false))."\n\n"
+							);
 						break;
 						case "js":
-							$content .= Moo::Sandbox(
-								JSMin::minify(file_get_contents($file))
-							)."\n\n";
+							Moo::Sandbox(
+								$content .= JSMin::minify(file_get_contents($file))."\n\n"
+							);
 						break;
 						default:
 						break;
@@ -122,7 +122,7 @@
 			return $output;
 		}
 		
-		public static function StylesheetFile($files, $path, $concat = false, $minify = false) {
+		public static function StylesheetFile($files, $options) {
 			$tag = '<link rel="stylesheet" type="text/css" href="#path" media="screen">';
 			$output = "";
 			
@@ -132,20 +132,20 @@
 					}
 				}
 				
-				if ($concat === true && $minify === false) {
-					$output = str_replace("#path", self::Concat($files, $path), $tag);
-				} else if ($minify === true) {
-					$output = str_replace("#path", self::Minify($files, $path), $tag);
+				if ($options["concat"] === true && $options["minify"] === false) {
+					$output = str_replace("#path", self::Concat($files, $options["path"]), $tag);
+				} else if ($options["minify"] === true) {
+					$output = str_replace("#path", self::Minify($files, $options["path"]), $tag);
 				} else {
 					foreach($files as $file) {
 						$output .= str_replace("#path", $file, $tag);
 					}
 				}
 			
-			return $output;
+			return Moo::Cache($output, $options["cache"]);
 		}
 		
-		public static function JavascriptFile($files, $path, $concat = false, $minify = false) {
+		public static function JavascriptFile($files, $options) {
 			$tag = '<script src="#path"></script>';
 			$output = "";
 			
@@ -155,17 +155,17 @@
 					}
 				}
 				
-				if ($concat == true && $minify === false) {
-					$output = str_replace("#path", self::Concat($files, $path), $tag);
-				} else if ($minify === true) {
-					$output = str_replace("#path", self::Minify($files, $path), $tag);
+				if ($options["concat"] == true && $options["minify"] === false) {
+					$output = str_replace("#path", self::Concat($files, $options["path"]), $tag);
+				} else if ($options["minify"] === true) {
+					$output = str_replace("#path", self::Minify($files, $options["path"]), $tag);
 				} else {
 					foreach($files as $file) {
 						$output .= str_replace("#path", $file, $tag);
 					}
 				}
 			
-			return $output;
+			return Moo::Cache($output, $options["cache"]);
 		}
 		
 		# https://github.com/philipwalton/PW_Zen_Coder

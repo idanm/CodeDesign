@@ -26,6 +26,16 @@
 				exit('fatal error:<br />'.$e->getMessage());
 			}
 		}
+		
+		public static function Cache($file, $switch) {
+			if ($switch === true) {
+		
+				self::Debug($file);
+		
+			}
+			
+			return $file;
+		}
 	
 	}
 	

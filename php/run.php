@@ -24,6 +24,7 @@
 			$this->input = "";
 			$this->output = "";
 			$this->settings = array(
+				"cache"			=> false,
 				"concat"		=> false,
 				"minify"		=> false,
 				"path"			=> array(
@@ -53,32 +54,33 @@
 						
 						self::$content_folder = $this->settings["path"]["content"];
 					} else {
-						$bad = array(
-							"path" => $this->settings["path"],
-							"concat" => $this->settings["concat"],
-							"minify" => $this->settings["minify"]
-						);
-						$this->output .= $this->Library($settings, $options, $bad)."\n";
+						$this->output .= $this->Library($settings, $options, $this->settings)."\n";
 					}
 				}
 	
 			echo $this->output;
 		}
 				
-		private function Library($markup, $files, $options) {
+		private function Library($markup, $files, $settings) {
+			$options = array(
+				"cache" => $settings["cache"],
+				"concat" => $settings["concat"],
+				"minify" => $settings["minify"]
+			);
 			$output = "";
 			
 				switch($markup) {
-					case "stylesheet":
-						$output = Library::StylesheetFile($files, $options["path"]["css"], $options["concat"], $options["minify"]);
+					case "stylesheet":				
+						$options["path"] = $settings["path"]["css"];
+						$output = Library::StylesheetFile($files, $options);
 					break;
 					case "javascript":
-						$output = Library::JavascriptFile($files, $options["path"]["js"], $options["concat"], $options["minify"]);
+						$options["path"] = $settings["path"]["js"];
+						$output = Library::JavascriptFile($files, $options);
 					break;
 					default:
 					break;
 				}
-			
 			return $output;
 		}
 		
