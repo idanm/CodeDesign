@@ -28,7 +28,7 @@
 		}
 		
 		public static function Cache($file, $switch) {
-			if ($switch === true) {
+		 	if ($switch === true) {
 		
 				self::Debug($file);
 		

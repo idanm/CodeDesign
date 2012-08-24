@@ -37,6 +37,8 @@
 				foreach($this->input as $settings => $options) {
 					if ($settings != "config") {
 						$this->output .= $this->Library($settings, $options, $this->input["config"])."\n";
+					} else {
+						self::$content_folder = $this->input["config"]["path"]["folders"]["content"];
 					}
 				}
 	
@@ -53,11 +55,11 @@
 			
 				switch($markup) {
 					case "stylesheet":				
-						$options["path"] = $settings["path"]["css"];
+						$options["path"] = $settings["path"]["files"]["css"];
 						$output = Library::StylesheetFile($files, $options);
 					break;
 					case "javascript":
-						$options["path"] = $settings["path"]["js"];
+						$options["path"] = $settings["path"]["files"]["js"];
 						$output = Library::JavascriptFile($files, $options);
 					break;
 					default:
