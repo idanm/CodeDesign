@@ -6,12 +6,13 @@
 	
 	<?php require_once(dirname(__FILE__). '/php/run.php'); CodeDesign::Run('{
 		"config": {
-			"cache":  false,
+			"cache":  true,
 			"concat": true,
 			"minify": true,
 			"path": {
 				"css": "style/common.css",
 				"js": "script/common.js",
+				"cache": "cache/",
 				"content": "content/default/"
 			}
 		},

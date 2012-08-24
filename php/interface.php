@@ -16,8 +16,8 @@
 	interface iLibrary {
 		public static function Less($path);
 		public static function CoffeeScript($path);
-		public static function Concat($files, $path);
-		public static function Minify($file, $path);
+		public static function Concat($files, $path, $cached);
+		public static function Minify($file, $path, $cached);
 		public static function Markdown($path);
 		public static function StylesheetFile($files, $options);
 		public static function JavascriptFile($files, $options);

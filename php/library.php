@@ -72,7 +72,7 @@
 			return $path;
 		}
 	
-		public static function Concat($files, $path) {
+		public static function Concat($files, $path, $cached = false) {
 			$content = "";
 			
 				foreach($files as $key => $file) {
@@ -80,13 +80,13 @@
 				}
 			
 				Moo::Sandbox(
-					file_put_contents($path, $content, LOCK_EX)
+					file_put_contents(Moo::Cache($path, $cached), $content, LOCK_EX)
 				);
 			
 			return $path;
 		}
 		
-		public static function Minify($files, $path) {
+		public static function Minify($files, $path, $cached = false) {
 			$extension = end(explode(".",$path));
 			$path = str_replace(".".$extension, ".min.".$extension, $path);
 			$content = "";
@@ -109,7 +109,7 @@
 				}
 				
 				Moo::Sandbox(
-					file_put_contents($path, $content, LOCK_EX)
+					file_put_contents(Moo::Cache($path, $cached), $content, LOCK_EX)
 				);
 				
 			return $path;
@@ -142,7 +142,7 @@
 					}
 				}
 			
-			return Moo::Cache($output, $options["cache"]);
+			return $output;
 		}
 		
 		public static function JavascriptFile($files, $options) {
@@ -156,16 +156,16 @@
 				}
 				
 				if ($options["concat"] == true && $options["minify"] === false) {
-					$output = str_replace("#path", self::Concat($files, $options["path"]), $tag);
+					$output = str_replace("#path", self::Concat($files, $options["path"], $options["cache"]), $tag);
 				} else if ($options["minify"] === true) {
-					$output = str_replace("#path", self::Minify($files, $options["path"]), $tag);
+					$output = str_replace("#path", self::Minify($files, $options["path"], $options["cache"]), $tag);
 				} else {
 					foreach($files as $file) {
 						$output .= str_replace("#path", $file, $tag);
 					}
 				}
 			
-			return Moo::Cache($output, $options["cache"]);
+			return $output;
 		}
 		
 		# https://github.com/philipwalton/PW_Zen_Coder

@@ -17,22 +17,12 @@
 	
 	#
 	class CodeDesign implements iCodeDesign {
-		private $input, $output, $settings;
+		private $input, $output;
 		private static $content_folder;
 		
 		public function __construct() {
 			$this->input = "";
 			$this->output = "";
-			$this->settings = array(
-				"cache"			=> false,
-				"concat"		=> false,
-				"minify"		=> false,
-				"path"			=> array(
-					"css"		=> "style/common.css",
-					"js"		=> "script/common.js",
-					"content"	=> "content/"
-				)
-			);
 		}
 		
 		public static function Run($json) {
@@ -43,18 +33,10 @@
 		
 		private function Laboratory($input) {
 			$this->input = json_decode($input, true, 9);
-			
+
 				foreach($this->input as $settings => $options) {
-					if ($settings == "config") {
-						foreach($options as $key => $value) {
-							if (!empty($value)) {
-								$this->settings[$key] = $value;
-							} 
-						}
-						
-						self::$content_folder = $this->settings["path"]["content"];
-					} else {
-						$this->output .= $this->Library($settings, $options, $this->settings)."\n";
+					if ($settings != "config") {
+						$this->output .= $this->Library($settings, $options, $this->input["config"])."\n";
 					}
 				}
 	
