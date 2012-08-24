@@ -109,7 +109,7 @@
 				}
 				
 				Moo::Sandbox(
-					file_put_contents(Moo::Cache($path, $extension, $cached), $content, LOCK_EX)
+					file_put_contents(Moo::Cache($path, $cached), $content, LOCK_EX)
 				);
 				
 			return $path;
