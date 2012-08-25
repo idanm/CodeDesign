@@ -10,7 +10,7 @@
 		public static function Log();
 		public static function Debug($crazy_stuff);
 		public static function SandBox($sand);
-		public static function Cache($file, $switch);
+		public static function Cache($file, $folder, $switch);
 	}
 	
 	interface iLibrary {

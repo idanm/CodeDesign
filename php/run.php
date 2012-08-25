@@ -37,9 +37,11 @@
 				foreach($this->input as $settings => $options) {
 					if ($settings != "config") {
 						$this->output .= $this->Library($settings, $options, $this->input["config"])."\n";
-					} else {
-						self::$content_folder = $this->input["config"]["path"]["folders"]["content"];
 					}
+				}
+				
+				if ($this->input["config"]["path"]["folders"]["content"]) {
+					self::$content_folder = $this->input["config"]["path"]["folders"]["content"];
 				}
 	
 			echo $this->output;
@@ -50,6 +52,7 @@
 				"cache" => $settings["cache"],
 				"concat" => $settings["concat"],
 				"minify" => $settings["minify"]
+				"cache_folder" => $settings["path"]
 			);
 			$output = "";
 			
@@ -69,9 +72,17 @@
 		}
 		
 		public static function Content($path) {
-			return Moo::Sandbox(
-				Library::Markdown(self::$content_folder.$path)
-			);
+			$output = "";
+			
+				if (!empty(self::$content_folder)) {
+					Moo::Sandbox(
+						$output = Library::Markdown(self::$content_folder.$path)
+					);
+				} else {
+					$output = "Missing Content Folder.";
+				}
+				
+			return $output;
 		}
 		
 	}

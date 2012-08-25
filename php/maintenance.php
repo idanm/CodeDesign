@@ -27,7 +27,7 @@
 			}
 		}
 		
-		public static function Cache($file, $switch) {
+		public static function Cache($file, $folder, $switch) {
 		 	if ($switch === true) {
 		
 				self::Debug($file);
