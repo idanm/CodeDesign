@@ -7,12 +7,10 @@
 	class Moo implements iMoo {
 	
 		public static function Log($content, $console) {
-			if ($console) self::Debug($content);
-			
 			$file = "php/moo.log";
 			$output = date("[Y/m/d H:i:s] ").$content."\n";
-			
 			file_put_contents($file, $output, FILE_APPEND);
+			if ($console) self::Debug($output);
 		}
 		
 		public static function Debug($crazy_stuff, $die = false) {
