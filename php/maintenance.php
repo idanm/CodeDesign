@@ -17,8 +17,15 @@
 			return $output;
 		}
 		
-		public static function Debug($crazy_stuff) {
-			die(var_dump($crazy_stuff));
+		public static function Debug($crazy_stuff, $die = false) {
+			if ($die) {
+				die(var_dump($crazy_stuff));
+			} else {
+				$output = str_replace("'", "", 
+					var_export(json_encode($crazy_stuff,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), true)
+				);
+				echo '<script>console.log('. $output .');</script>';
+			}
 		}
 		
 		public static function Sandbox($sand) {
@@ -27,11 +34,9 @@
 			}
 		}
 		
-		public static function Cache($file, $folder, $switch) {
+		public static function Cache($file, $folder, $switch = false) {
 		 	if ($switch === true) {
-		
-				self::Debug($file);
-		
+				self::Debug($folder.$file);
 			}
 			
 			return $file;

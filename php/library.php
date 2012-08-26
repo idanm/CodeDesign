@@ -49,8 +49,7 @@
 				);
 
 				$path = implode(".", $_path);
-				file_put_contents($path, $output, LOCK_EX);
-								
+				file_put_contents($path, $output, LOCK_EX);								
 				
 			return $path;
 		}
@@ -72,21 +71,21 @@
 			return $path;
 		}
 	
-		public static function Concat($files, $path, $cached = false) {
+		public static function Concat($files, $path, $cache_folder = '', $cached = false) {
 			$content = "";
 			
 				foreach($files as $key => $file) {
 					$content .= trim(file_get_contents($file))."\n\n";
 				}
-			
+
 				Moo::Sandbox(
-					file_put_contents(Moo::Cache($path, $cached), $content, LOCK_EX)
+					file_put_contents($path, $content, LOCK_EX)
 				);
-			
+
 			return $path;
 		}
 		
-		public static function Minify($files, $path, $cached = false) {
+		public static function Minify($files, $path, $cache_folder = '', $cached = false) {
 			$extension = end(explode(".",$path));
 			$path = str_replace(".".$extension, ".min.".$extension, $path);
 			$content = "";
@@ -109,10 +108,10 @@
 				}
 				
 				Moo::Sandbox(
-					file_put_contents(Moo::Cache($path, $cached), $content, LOCK_EX)
+					file_put_contents($path, $content, LOCK_EX)
 				);
 				
-			return $path;
+			return Moo::Cache($path, $cache_folder, $cached);
 		}
 		
 		public static function Markdown($path) {
@@ -133,9 +132,9 @@
 				}
 				
 				if ($options["concat"] === true && $options["minify"] === false) {
-					$output = str_replace("#path", self::Concat($files, $options["path"]), $tag);
+					$output = str_replace("#path", self::Concat($files, $options["path"], $options["cache_folder"], $options["cache"]), $tag);
 				} else if ($options["minify"] === true) {
-					$output = str_replace("#path", self::Minify($files, $options["path"]), $tag);
+					$output = str_replace("#path", self::Minify($files, $options["path"], $options["cache_folder"], $options["cache"]), $tag);
 				} else {
 					foreach($files as $file) {
 						$output .= str_replace("#path", $file, $tag);
@@ -156,9 +155,9 @@
 				}
 				
 				if ($options["concat"] == true && $options["minify"] === false) {
-					$output = str_replace("#path", self::Concat($files, $options["path"], $options["cache"]), $tag);
+					$output = str_replace("#path", self::Concat($files, $options["path"], $options["cache_folder"], $options["cache"]), $tag);
 				} else if ($options["minify"] === true) {
-					$output = str_replace("#path", self::Minify($files, $options["path"], $options["cache"]), $tag);
+					$output = str_replace("#path", self::Minify($files, $options["path"], $options["cache_folder"], $options["cache"]), $tag);
 				} else {
 					foreach($files as $file) {
 						$output .= str_replace("#path", $file, $tag);

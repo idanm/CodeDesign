@@ -33,7 +33,6 @@
 		
 		private function Laboratory($input) {
 			$this->input = json_decode($input, true, 9);
-
 				foreach($this->input as $settings => $options) {
 					if ($settings != "config") {
 						$this->output .= $this->Library($settings, $options, $this->input["config"])."\n";
@@ -51,8 +50,8 @@
 			$options = array(
 				"cache" => $settings["cache"],
 				"concat" => $settings["concat"],
-				"minify" => $settings["minify"]
-				"cache_folder" => $settings["path"]
+				"minify" => $settings["minify"],
+				"cache_folder" => $settings["path"]["folders"]["cache"]
 			);
 			$output = "";
 			
