@@ -6,15 +6,13 @@
 	
 	class Moo implements iMoo {
 	
-		public static function Log() {
-			$output = "";
-		
-			if (!empty($_GET["log"])) {
-				$moo = "Big Cow, Says Mooo !!!";
-				$output = '<script>console.log("'. $moo .'");</script>';
-			}
+		public static function Log($content, $console) {
+			if ($console) self::Debug($content);
 			
-			return $output;
+			$file = "php/moo.log";
+			$output = date("[Y/m/d H:i:s] ").$content."\n";
+			
+			file_put_contents($file, $output, FILE_APPEND);
 		}
 		
 		public static function Debug($crazy_stuff, $die = false) {
@@ -36,7 +34,15 @@
 		
 		public static function Cache($file, $folder, $switch = false) {
 		 	if ($switch === true) {
-				self::Debug($folder.$file);
+		 		$file = $folder.$file;
+		 				 		
+		 		if (file_exists($file)) {
+			 		
+		 		} else {
+			 		self::Log("Cache Failed: file doesnt exsits", true);
+		 		}
+		 		
+				self::Debug($file, true);
 			}
 			
 			return $file;
