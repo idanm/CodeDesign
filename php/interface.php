@@ -10,6 +10,7 @@
 		public static function Debug($crazy_stuff, $die);
 		public static function SandBox($sand);
 		public static function Cache($file, $switch);
+		public static function DomainCheck($domain);
 	}
 	
 	interface iLibrary {

@@ -40,6 +40,10 @@
 			
 			return $file;
 		}
+		
+		public static function DomainCheck($domain) {
+			return $domain == $_SERVER["SERVER_NAME"];
+		}
 	
 	}
 	

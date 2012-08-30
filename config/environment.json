@@ -1,0 +1,46 @@
+{
+    "default": {
+        "config": {
+            "cache": false,
+            "concat": false,
+            "minify": false
+        },
+        "stylesheet": [
+            "style/custom.less",
+            "style/libs/bootstrap/bootstrap.min.css"
+        ],
+        "javascript": [
+            "script/libs/modernizr.min.js",
+            "script/libs/jquery.min.js",
+            "script/libs/bootstrap.min.js",
+            "script/custom.js"
+        ],
+        "resources": {
+            "files": {
+                "css": "style/common.css",
+                "js": "script/common.js"
+            },
+            "folders": {
+                "content": "content/"
+            }
+        }
+    },
+    "test.local": {
+        "config": {
+            "concat": true
+        },
+        "resources": {
+            "files": {
+                "js": "script/common1.js"
+            }
+        }
+        
+    },
+    "idansmith.com": {
+        "config": {
+            "cache": true,
+            "concat": true,
+            "minify": true
+        }
+    }
+}
