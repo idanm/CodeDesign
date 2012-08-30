@@ -50,8 +50,7 @@
 			$options = array(
 				"cache" => $settings["cache"],
 				"concat" => $settings["concat"],
-				"minify" => $settings["minify"],
-				"cache_folder" => $settings["path"]["folders"]["cache"]
+				"minify" => $settings["minify"]
 			);
 			$output = "";
 			

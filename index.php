@@ -15,8 +15,7 @@
 					"js": "script/common.js"
 				},
 				"folders": {
-					"cache": "cache/",
-					"content": "content/default/"
+					"content": "content/"
 				}
 			}
 		},

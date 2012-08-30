@@ -35,6 +35,8 @@
 	##
 	require_once(dirname(__FILE__) .'/libs/php-markdown/markdown.php');
 	
+	
+	
 	class Library implements iLibrary {
 		
 		public static function Less($path) {
@@ -71,7 +73,7 @@
 			return $path;
 		}
 	
-		public static function Concat($files, $path, $cache_folder = '', $cached = false) {
+		public static function Concat($files, $path, $cached = false) {
 			$content = "";
 			
 				foreach($files as $key => $file) {
@@ -82,10 +84,10 @@
 					file_put_contents($path, $content, LOCK_EX)
 				);
 
-			return $path;
+			return Moo::Cache($path, $cached);
 		}
 		
-		public static function Minify($files, $path, $cache_folder = '', $cached = false) {
+		public static function Minify($files, $path, $cached = false) {
 			$extension = end(explode(".",$path));
 			$path = str_replace(".".$extension, ".min.".$extension, $path);
 			$content = "";
@@ -111,7 +113,7 @@
 					file_put_contents($path, $content, LOCK_EX)
 				);
 				
-			return Moo::Cache($path, $cache_folder, $cached);
+			return Moo::Cache($path, $cached);
 		}
 		
 		public static function Markdown($path) {
@@ -132,9 +134,9 @@
 				}
 				
 				if ($options["concat"] === true && $options["minify"] === false) {
-					$output = str_replace("#path", self::Concat($files, $options["path"], $options["cache_folder"], $options["cache"]), $tag);
+					$output = str_replace("#path", self::Concat($files, $options["path"], $options["cache"]), $tag);
 				} else if ($options["minify"] === true) {
-					$output = str_replace("#path", self::Minify($files, $options["path"], $options["cache_folder"], $options["cache"]), $tag);
+					$output = str_replace("#path", self::Minify($files, $options["path"], $options["cache"]), $tag);
 				} else {
 					foreach($files as $file) {
 						$output .= str_replace("#path", $file, $tag);
@@ -155,9 +157,9 @@
 				}
 				
 				if ($options["concat"] == true && $options["minify"] === false) {
-					$output = str_replace("#path", self::Concat($files, $options["path"], $options["cache_folder"], $options["cache"]), $tag);
+					$output = str_replace("#path", self::Concat($files, $options["path"], $options["cache"]), $tag);
 				} else if ($options["minify"] === true) {
-					$output = str_replace("#path", self::Minify($files, $options["path"], $options["cache_folder"], $options["cache"]), $tag);
+					$output = str_replace("#path", self::Minify($files, $options["path"], $options["cache"]), $tag);
 				} else {
 					foreach($files as $file) {
 						$output .= str_replace("#path", $file, $tag);

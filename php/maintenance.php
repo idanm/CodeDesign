@@ -7,9 +7,8 @@
 	class Moo implements iMoo {
 	
 		public static function Log($content, $console) {
-			$file = "php/moo.log";
 			$output = date("[Y/m/d H:i:s] ").$content."\n";
-			file_put_contents($file, $output, FILE_APPEND);
+			file_put_contents("logs/moo.log", $output, FILE_APPEND | LOCK_EX);
 			if ($console) self::Debug($output);
 		}
 		
@@ -30,17 +29,13 @@
 			}
 		}
 		
-		public static function Cache($file, $folder, $switch = false) {
+		public static function Cache($file, $switch = false) {
 		 	if ($switch === true) {
-		 		$file = $folder.$file;
-		 				 		
 		 		if (file_exists($file)) {
-			 		
+			 		$file = $file . '?' . date ("YmdHis", filemtime($file));
 		 		} else {
-			 		self::Log("Cache Failed: file doesnt exsits", true);
+			 		self::Log("Cache Failed: File doesn't exsits", true);
 		 		}
-		 		
-				self::Debug($file, true);
 			}
 			
 			return $file;
