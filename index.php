@@ -4,7 +4,10 @@
 	<meta name="description" content="" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	
-	<?php require_once(dirname(__FILE__). '/php/run.php'); CodeDesign::Run(file_get_contents('config/environment.json')); ?>
+    <?php
+       require_once(dirname(__FILE__). '/php/run.php');
+       echo CodeDesign::Run(file_get_contents('config/environment.json'));
+    ?>
 	
 </head><body id="top">
 	

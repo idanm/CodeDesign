@@ -28,11 +28,6 @@
     "test.local": {
         "config": {
             "concat": true
-        },
-        "resources": {
-            "files": {
-                "js": "script/common1.js"
-            }
         }
         
     },

@@ -7,7 +7,6 @@
 	# @author idanm
 	##
 	
-	
 	##
 	# System Files
 	##
@@ -33,12 +32,10 @@
 
 		private static function MakeEnv($default, $domain) {
             foreach ($domain as $settings => $options) {
-                if ((is_array($options)  && count(array_filter(array_keys($options),'is_string')) == count($options))) {
+                if ((is_array($options) && count(array_filter(array_keys($options),'is_string')) == count($options))) {
                     $default[$settings] = array_replace_recursive($default[$settings], $domain[$settings]);
                 } else {
-                    if (is_array($options)) {
-                        $default[$settings] = array_merge($default[$settings], $domain[$settings]);
-                    }
+                    $default[$settings] = array_merge($default[$settings], $domain[$settings]);
                 }
             }
             
@@ -61,42 +58,34 @@
 		}
 		
 		private static function Laboratory($input) {
-			$input = self::Config(json_decode($input, true, 9));
+            $input = self::Config(
+                json_decode($input, true, 9)
+            );
+            $_options = array(
+				"cache" => $input["config"]["cache"],
+				"concat" => $input["config"]["concat"],
+				"minify" => $input["config"]["minify"]
+            );
 			$output = "";
 			
 				foreach($input as $settings => $options) {
-					if ($settings != "config") {
-						Moo::Debug($settings);
-						$output .= self::Library($settings, $options, $input)."\n";
-					}
-				}
-				
-				if ($input["resources"]["folders"]["content"]) {
-					self::$content_folder = $input["resources"]["folders"]["content"];
-				}
-	
-			return $output;
-		}
-
-		private static function Library($markup, $files, $settings) {
-			$options = array(
-				"cache" => $settings["config"]["cache"],
-				"concat" => $settings["config"]["concat"],
-				"minify" => $settings["config"]["minify"]
-			);
-			$output = "";
-			
-				switch($markup) {
-					case "stylesheet":				
-						$options["path"] = $settings["resources"]["files"]["css"];
-						$output = Library::StylesheetFile($files, $options);
-					break;
-					case "javascript":
-						$options["path"] = $settings["resources"]["files"]["js"];
-						$output = Library::JavascriptFile($files, $options);
-					break;
-					default:
-					break;
+				    switch($settings) {
+    					case "stylesheet":
+    						$_options["path"] = $input["resources"]["files"]["css"];
+    						$output .= Library::StylesheetFile($options, $_options);
+    					break;
+    					case "javascript":
+    						$_options["path"] = $input["resources"]["files"]["js"];
+    						$output .= Library::JavascriptFile($options, $_options);
+    					break;
+    				    case "resources":
+                            if ($options["folders"]["content"]) {
+            					self::$content_folder = $options["folders"]["content"];
+            				}
+    				    break;
+    				    default:
+    				    break;
+				    }
 				}
 				
 			return $output;

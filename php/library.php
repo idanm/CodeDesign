@@ -49,10 +49,10 @@
 				Moo::Sandbox(
 					$output = $less->compileFile($path)
 				);
-
-				$path = implode(".", $_path);
-				file_put_contents($path, $output, LOCK_EX);								
 				
+				$path = implode(".", $_path);
+				file_put_contents($path, $output, LOCK_EX);
+
 			return $path;
 		}
 		
@@ -79,7 +79,7 @@
 				foreach($files as $key => $file) {
 					$content .= trim(file_get_contents($file))."\n\n";
 				}
-
+				
 				Moo::Sandbox(
 					file_put_contents($path, $content, LOCK_EX)
 				);
@@ -142,7 +142,7 @@
 						$output .= str_replace("#path", $file, $tag);
 					}
 				}
-			
+				
 			return $output;
 		}
 		
