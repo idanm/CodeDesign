@@ -17,36 +17,32 @@
 	
 	#
 	class CodeDesign implements iCodeDesign {
-		private $input, $output;
 		private static $content_folder;
-		
-		public function __construct() {
-			$this->input = "";
-			$this->output = "";
-		}
 		
 		public static function Run($json) {
 			if (!empty($json)) {
-				$self = new CodeDesign(); return $self->Laboratory($json);
+				return self::Laboratory($json);
 			}
 		}
 		
-		private function Laboratory($input) {
-			$this->input = json_decode($input, true, 9);
-				foreach($this->input as $settings => $options) {
+		private static function Laboratory($input) {
+			$input = json_decode($input, true, 9);
+			$output = "";
+			
+				foreach($input as $settings => $options) {
 					if ($settings != "config") {
-						$this->output .= $this->Library($settings, $options, $this->input["config"])."\n";
+						$output .= self::Library($settings, $options, $input["config"])."\n";
 					}
 				}
 				
-				if ($this->input["config"]["path"]["folders"]["content"]) {
-					self::$content_folder = $this->input["config"]["path"]["folders"]["content"];
+				if ($input["config"]["path"]["folders"]["content"]) {
+					self::$content_folder = $input["config"]["path"]["folders"]["content"];
 				}
 	
-			echo $this->output;
+			return $output;
 		}
-				
-		private function Library($markup, $files, $settings) {
+
+		private static function Library($markup, $files, $settings) {
 			$options = array(
 				"cache" => $settings["cache"],
 				"concat" => $settings["concat"],

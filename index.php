@@ -4,32 +4,7 @@
 	<meta name="description" content="" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	
-	<?php require_once(dirname(__FILE__). '/php/run.php'); CodeDesign::Run('{
-		"config": {
-			"cache": true,
-			"concat": true,
-			"minify": true,
-			"path": {
-				"files": {
-					"css": "style/common.css",
-					"js": "script/common.js"
-				},
-				"folders": {
-					"content": "content/"
-				}
-			}
-		},
-		"stylesheet": [
-			"style/custom.less",
-			"style/libs/bootstrap/bootstrap.min.css"
-		],
-		"javascript": [
-			"script/libs/modernizr.min.js",
-			"script/libs/jquery.min.js",
-			"script/libs/bootstrap.min.js",
-			"script/custom.js"
-		]
-	}'); ?>
+	<?php require_once(dirname(__FILE__). '/php/run.php'); CodeDesign::Run(file_get_contents('config.json')); ?>
 	
 </head><body id="top">
 	

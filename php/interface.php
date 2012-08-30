@@ -1,7 +1,6 @@
 <?php
 	
 	interface iCodeDesign {
-		public function __construct();
 		public static function Run($json);
 		public static function Content($context);
 	}
