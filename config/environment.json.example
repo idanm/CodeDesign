@@ -25,13 +25,13 @@
             }
         }
     },
-    "test.local": {
+    "localhost": {
         "config": {
             "concat": true
         }
         
     },
-    "idansmith.com": {
+    "example-domain.com": {
         "config": {
             "cache": true,
             "concat": true,
