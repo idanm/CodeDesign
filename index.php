@@ -1,5 +1,5 @@
 <!DOCTYPE HTML><html><head>
-	<title>{...} CodeDesign - PHP Boilerplate, deploying easily stylesheet, javascript and markdown files in php environment.</title>
+	<title>{...} CodeDesign - deploying easily stylesheet, javascript and markdown files in php environment.</title>
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />

@@ -1,8 +1,8 @@
 <?php
 	
-	##
-	# Moo is a maintenance class.
-	##
+	/*
+	 * Moo is a maintenance class.
+	*/
 	
 	class Moo implements iMoo {
 	

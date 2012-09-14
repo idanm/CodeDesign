@@ -1,42 +1,41 @@
 <?php
 	
-	##  
-	# LESS compiler written in PHP.
-	# URL https://github.com/leafo/lessphp
-	# Coded By leafo (Leaf Corcoran)
-	##
+	/*  
+	 * LESS compiler written in PHP.
+	 * URL https://github.com/leafo/lessphp
+	 * Coded By leafo (Leaf Corcoran)
+	*/
 	require_once(dirname(__FILE__) .'/libs/lessphp/lessc.inc.php');
 	
-	##
-	# A port of the CoffeeScript compiler to PHP.
-	# URL https://github.com/alxlit/coffeescript-php
-	# Coded By alxlit (Alex Little)
-	##
+	/*
+	 * A port of the CoffeeScript compiler to PHP.
+	 * URL https://github.com/alxlit/coffeescript-php
+	 * Coded By alxlit (Alex Little)
+	*/
 	require_once(dirname(__FILE__) .'/libs/coffeescript-php/src/CoffeeScript/Init.php');
 	
-	##
-	# A (simple) css minifier with benefits
-	# URL https://github.com/brunschgi/cssmin
-	# Coded By brunschgi (Remo Brunschwiler)
-	##
+	/*
+	 * A (simple) css minifier with benefits
+	 * URL https://github.com/brunschgi/cssmin
+	 * Coded By brunschgi (Remo Brunschwiler)
+	*/
 	require_once(dirname(__FILE__) .'/libs/cssmin/cssmin.php');
 	
-	##
-	# UNMAINTAINED PHP port of Douglas Crockford's JSMin JavaScript minifier.
-	# URL https://github.com/rgrove/jsmin-php
-	# Coded By rgrove (Ryan Grove)
-	##
+	/*
+	 * PHP port of Douglas Crockford's JSMin JavaScript minifier. (Maintained version)
+	 * URL https://github.com/eriknyk/jsmin-php
+	 * Coded By eriknyk (Erik Amaru Ortiz)
+	*/
 	require_once(dirname(__FILE__) .'/libs/jsmin-php/jsmin.php');
 	
-	##
-	# PHP Markdown is a port to PHP of the Markdown perl script by John Grubber.
-	# URL https://github.com/michelf/php-markdown
-	# Coded By michelf (Michel Fortin)
-	##
+	/*
+	 * PHP Markdown is a port to PHP of the Markdown perl script by John Grubber.
+	 * URL https://github.com/michelf/php-markdown
+	 * Coded By michelf (Michel Fortin)
+	*/
 	require_once(dirname(__FILE__) .'/libs/php-markdown/markdown.php');
 	
-	
-	
+
 	class Library implements iLibrary {
 		
 		public static function Less($path) {

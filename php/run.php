@@ -1,20 +1,20 @@
 <?php
 
-	##
-	# CodeDesign
-	# deploying easily styles and javascript files in php environment.
-	# 
-	# @author idanm
-	##
+	/*
+	 * CodeDesign
+	 * deploying easily styles and javascript files in php environment.
+	 * 
+	 * @author idanm
+	*/
 	
-	##
-	# System Files
-	##
+	/*
+	 * System Files
+	*/
 	require_once(dirname(__FILE__). '/interface.php');
 	require_once(dirname(__FILE__). '/maintenance.php');
 	require_once(dirname(__FILE__). '/library.php');
 	
-	#
+
 	class CodeDesign implements iCodeDesign {
 		private static $content_folder;
 		
