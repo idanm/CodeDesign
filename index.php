@@ -5,7 +5,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	
     <?php
-       require_once(dirname(__FILE__). '/php/run.php');
+       require_once(dirname(__FILE__) . '/php/run.php');
        echo CodeDesign::Run(file_get_contents('config/environment.json'));
     ?>
 	

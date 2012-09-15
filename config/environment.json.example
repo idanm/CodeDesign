@@ -1,41 +1,44 @@
 {
-    "default": {
-        "config": {
-            "cache": false,
-            "concat": false,
-            "minify": false
-        },
-        "stylesheet": [
-            "style/custom.less",
-            "style/libs/bootstrap/bootstrap.min.css"
-        ],
-        "javascript": [
-            "script/libs/modernizr.min.js",
-            "script/libs/jquery.min.js",
-            "script/libs/bootstrap.min.js",
-            "script/custom.js"
-        ],
-        "resources": {
-            "files": {
-                "css": "style/common.css",
-                "js": "script/common.js"
-            },
-            "folders": {
-                "content": "content/"
-            }
-        }
+  "default": {
+    "config": {
+      "cache": false,
+      "concat": false,
+      "minify": false
     },
-    "localhost": {
-        "config": {
-            "concat": true
-        }
-        
+    "stylesheet": [
+      "style/custom.less",
+      "style/libs/bootstrap/bootstrap.min.css"
+    ],
+    "javascript": [
+      "script/libs/modernizr.min.js",
+      "script/libs/jquery.min.js",
+      "script/libs/bootstrap.min.js",
+      "script/custom.js"
+    ],
+    "helpers": {
+      "content": "content/"
     },
-    "example-domain.com": {
-        "config": {
-            "cache": true,
-            "concat": true,
-            "minify": true
-        }
+    "resources": {
+      "css": {
+        "tag": "<link rel=\"stylesheet\" type=\"text/css\" href=\"#path\" media=\"screen\">",
+        "path": "style/common.css"
+      },
+      "js": {
+        "tag": "<script src=\"#path\"></script>",
+        "path": "script/common.js"
+      }
     }
+  },
+  "localhost": {
+    "config": {
+      "concat": true
+    }      
+  },
+  "example-domain.com": {
+    "config": {
+      "cache": true,
+      "concat": true,
+      "minify": true
+  }
+  }
 }

@@ -1,9 +1,6 @@
 <?php
 	
-	/*
-	 * Moo is a maintenance class.
-	*/
-	
+	// Moo is a maintenance class.
 	class Moo implements iMoo {
 	
 		public static function Log($content, $console) {
@@ -29,22 +26,10 @@
 			}
 		}
 		
-		public static function Cache($file, $switch = false) {
-		 	if ($switch === true) {
-		 		if (file_exists($file)) {
-			 		$file = $file . '?' . date ("YmdHis", filemtime($file));
-		 		} else {
-			 		self::Log("Cache Failed: File doesn't exsits", true);
-		 		}
-			}
-			
-			return $file;
-		}
-		
 		public static function DomainCheck($domain) {
 			return $domain == $_SERVER["SERVER_NAME"];
 		}
-	
+
 	}
 	
 ?>
