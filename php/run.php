@@ -64,11 +64,13 @@
       $input = self::Config(
         json_decode($input, true, 9)
       );
+      
       $_options = array(
         "cache" => $input["config"]["cache"],
         "concat" => $input["config"]["concat"],
         "minify" => $input["config"]["minify"]
       );
+
       $output = "";
       
         foreach($input as $settings => $options) {
