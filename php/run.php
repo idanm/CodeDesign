@@ -16,11 +16,11 @@
   // Helpers
   // require_once(dirname(__FILE__) . '/helpers/content.php');
   
-
   class CodeDesign implements iCodeDesign {
     private static $content_folder;
     
-    public static function Run($json) {
+    public static function Run() {
+      $json = file_get_contents('config/environment.json');
       $output = array();
       
       if (!empty($json)) {

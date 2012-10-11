@@ -7,7 +7,7 @@
     <?php
       require_once(dirname(__FILE__) . '/php/run.php');
       #echo CodeDesign::Run(file_get_contents('config/environment.e.json'));
-      echo CodeDesign::Run('');
+      echo CodeDesign::Run();
     ?>
   
 </head><body id="top">

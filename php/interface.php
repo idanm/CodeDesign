@@ -1,7 +1,7 @@
 <?php
   
   interface iCodeDesign {
-    public static function Run($json);
+    public static function Run();
     public static function Content($context);
   }
 
@@ -16,6 +16,7 @@
   interface iMoo {
     public static function Log($content, $console);
     public static function Debug($crazy_stuff, $die);
+    public static function Message($path);
     public static function SandBox($sand);
     public static function DomainCheck($domain);
   }
