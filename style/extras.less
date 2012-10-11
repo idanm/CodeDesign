@@ -11,43 +11,43 @@
 
 // Functions
 .gradient(@direction, @start, @end){
-	background: -webkit-linear-gradient(@direction, @start, @end); 
-	background: -moz-linear-gradient(@direction, @start, @end);
-	background: -ms-linear-gradient(@direction, @start, @end);
-	background: -o-linear-gradient(@direction, @start, @end);
+  background: -webkit-linear-gradient(@direction, @start, @end); 
+  background: -moz-linear-gradient(@direction, @start, @end);
+  background: -ms-linear-gradient(@direction, @start, @end);
+  background: -o-linear-gradient(@direction, @start, @end);
 }
 .gradient-sprite(@direction, @start, @end, @x, @y){
-	background: url('@{images}/@{sprite}') @x @y no-repeat,
-		-webkit-linear-gradient(@direction, @start, @end); 
-	background: url('@{images}/@{sprite}') @x @y no-repeat,
-		-moz-linear-gradient(@direction, @start, @end);
-	background: url('@{images}/@{sprite}') @x @y no-repeat,
-		-ms-linear-gradient(@direction, @start, @end);
-	background: url('@{images}/@{sprite}') @x @y no-repeat,
-		-o-linear-gradient(@direction, @start, @end);
+  background: url('@{images}/@{sprite}') @x @y no-repeat,
+    -webkit-linear-gradient(@direction, @start, @end); 
+  background: url('@{images}/@{sprite}') @x @y no-repeat,
+    -moz-linear-gradient(@direction, @start, @end);
+  background: url('@{images}/@{sprite}') @x @y no-repeat,
+    -ms-linear-gradient(@direction, @start, @end);
+  background: url('@{images}/@{sprite}') @x @y no-repeat,
+    -o-linear-gradient(@direction, @start, @end);
 }
 
 .sprite(@x: 0, @y: 0, @color: transparent){
-	background: @color url('@{images}/@{sprite}') @x @y no-repeat;
+  background: @color url('@{images}/@{sprite}') @x @y no-repeat;
 }
 
 .sprite-y( @x: 0, @y: 0, @repeat: no-repeat ) {
-	background: url('@{images}/@{sprite-y}') @arguments;
+  background: url('@{images}/@{sprite-y}') @arguments;
 }
 
 .sprite-repeat-x(@y: 0, @color: transparent){
-	background: @color url('@{images}/@{sprite-repeat-x}') 0 @y repeat-x;
+  background: @color url('@{images}/@{sprite-repeat-x}') 0 @y repeat-x;
 }
 
 .sprite-repeat-y(@x: 0, @color: transparent){
-	background: @color url('@{images}/@{sprite-repeat-y}') @x 0 repeat-y;
+  background: @color url('@{images}/@{sprite-repeat-y}') @x 0 repeat-y;
 }
 
 .font-size-em(@size){
-	font-size: @size/13em;
+  font-size: @size/13em;
 }
 
 .wh(@dimensions){
-	height: @dimensions;
-	width: @dimensions;
+  height: @dimensions;
+  width: @dimensions;
 }

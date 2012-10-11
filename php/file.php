@@ -54,7 +54,7 @@
           }
         }
         
-      return $output;      
+      return $output;
     }
 
     public static function Cache($file, $switch = false) {
