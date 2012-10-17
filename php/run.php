@@ -20,22 +20,20 @@
     private static $content_folder;
     
     public static function Run() {
-      $json = file_get_contents('config/environment.json');
-      $output = array();
-      
-      if (!empty($json)) {
-        $output = self::Laboratory($json);
-      } else {
-        Moo::Log(Moo::Message("run.failed"), true);
-      }
-      
-      return $output;
+      Moo::Sandbox(
+        $json = file_get_contents('config/environment.json'), 'bla!'
+      );
+      Moo::Sandbox(
+        $json = json_decode($json, true, 9), 'da!'
+      );
+
+      return self::Laboratory(self::Config($json));
     }
 
     private static function MakeEnv($default, $domain) {
       foreach ($domain as $settings => $options) {
-        if ((is_array($options) && count(array_filter(array_keys($options),'is_string')) == count($options))) {
           $default[$settings] = array_replace_recursive($default[$settings], $domain[$settings]);
+        if ((is_array($options) && count(array_filter(array_keys($options),'is_string')) == count($options))) {
         } else {
           $default[$settings] = array_merge($default[$settings], $domain[$settings]);
         }
@@ -61,9 +59,6 @@
     }
     
     private static function Laboratory($input) {
-      $input = self::Config(
-        json_decode($input, true, 9)
-      );
       $_options = array(
         "cache" => $input["config"]["cache"],
         "concat" => $input["config"]["concat"],

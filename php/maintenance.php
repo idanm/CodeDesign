@@ -40,9 +40,10 @@
       }
     }
     
-    public static function Sandbox($sand) {
+    public static function Sandbox($sand, $message = '') {
       try { return $sand; } catch (exception $e) {
-        exit('fatal error:<br />'.$e->getMessage());
+        // $e->getMessage();
+        exit($message);
       }
     }
     
