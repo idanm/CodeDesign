@@ -4,11 +4,10 @@
   <meta name="description" content="" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   
-    <?php
-      require_once(dirname(__FILE__) . '/php/run.php');
-      #echo CodeDesign::Run(file_get_contents('config/environment.e.json'));
-      echo CodeDesign::Run();
-    ?>
+  <?php
+    require_once(dirname(__FILE__) . '/php/run.php');
+    CodeDesign::Run();
+  ?>
   
 </head><body id="top">
   
@@ -40,5 +39,5 @@
       <?php echo CodeDesign::Content('footer'); ?>
     </footer>
   </section>
-  
+
 </body></html>

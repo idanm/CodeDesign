@@ -7,8 +7,10 @@
    * @author idanm
   */
 
-  // System Files
+  // Environment check and level
   require_once(dirname(__FILE__) . '/environment-mount.php');
+
+  // System Files
   require_once(dirname(__FILE__) . '/interface.php');
   require_once(dirname(__FILE__) . '/library.php');
   require_once(dirname(__FILE__) . '/file.php');
