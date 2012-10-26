@@ -6,8 +6,9 @@
    * 
    * @author idanm
   */
-  
+
   // System Files
+  require_once(dirname(__FILE__) . '/environment-mount.php');
   require_once(dirname(__FILE__) . '/interface.php');
   require_once(dirname(__FILE__) . '/library.php');
   require_once(dirname(__FILE__) . '/file.php');
@@ -20,14 +21,10 @@
     private static $content_folder;
     
     public static function Run() {
-      Moo::Sandbox(
-        $json = file_get_contents('config/environment.json'), 'bla!'
-      );
-      Moo::Sandbox(
-        $json = json_decode($json, true, 9), 'da!'
-      );
+      $json = Moo::Sandbox(file_get_contents('config/environment.json'), 'bla!');
+      $json = Moo::Sandbox(json_decode($json, true, 9), 'da!');
 
-      return self::Laboratory(self::Config($json));
+      echo self::Laboratory(self::Config($json));
     }
 
     private static function MakeEnv($default, $domain) {
