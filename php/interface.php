@@ -1,8 +1,10 @@
 <?php
   
-  interface iCodeDesign {
+  interface iCode {
     public static function Run();
     public static function Content($context);
+    public static function Stylesheet_Files();
+    public static function Javascript_Files();
   }
 
   interface iFile {

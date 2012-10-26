@@ -1,4 +1,4 @@
-<?php 
+<?php
 
   // Environment Mount
   // simple php file for cheking your server and leveling for the software

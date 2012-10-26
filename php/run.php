@@ -1,44 +1,13 @@
 <?php
 
-  /*
-   * CodeDesign
-   * deploying easily styles and javascript files in php environment.
-   * 
-   * @author idanm
-  */
-
-  // Environment check and level
-  require_once(dirname(__FILE__) . '/environment-mount.php');
-
-  // System Files
-  require_once(dirname(__FILE__) . '/interface.php');
-  require_once(dirname(__FILE__) . '/library.php');
-  require_once(dirname(__FILE__) . '/file.php');
-  require_once(dirname(__FILE__) . '/maintenance.php');
-
-  // Helpers
-  // require_once(dirname(__FILE__) . '/helpers/content.php');
-  
-  class CodeDesign implements iCodeDesign {
-    private static $content_folder;
+  class Code implements iCode {
+    private static $content_folder, $stylesheet_tag, $javascript_tag;
     
     public static function Run() {
       $json = Moo::Sandbox(file_get_contents('config/environment.json'), 'bla!');
       $json = Moo::Sandbox(json_decode($json, true, 9), 'da!');
 
-      echo self::Laboratory(self::Config($json));
-    }
-
-    private static function MakeEnv($default, $domain) {
-      foreach ($domain as $settings => $options) {
-          $default[$settings] = array_replace_recursive($default[$settings], $domain[$settings]);
-        if ((is_array($options) && count(array_filter(array_keys($options),'is_string')) == count($options))) {
-        } else {
-          $default[$settings] = array_merge($default[$settings], $domain[$settings]);
-        }
-      }
-      
-      return $default;
+      self::Laboratory(self::Config($json));
     }
     
     private static function Config($environment) {
@@ -49,7 +18,13 @@
           $output = $environment["default"];
         } else {
           if (Moo::DomainCheck($domain)) {
-            $output = self::MakeEnv($output, $settings);
+            foreach ($settings as $options => $attributes) {
+                $output[$options] = array_replace_recursive($output[$options], $settings[$options]);
+              if ((is_array($attributes) && count(array_filter(array_keys($attributes),'is_string')) == count($attributes))) {
+              } else {
+                $output[$options] = array_merge($output[$options], $settings[$options]);
+              }
+            }
           }
         }
       }
@@ -69,11 +44,11 @@
           switch($settings) {
             case "stylesheet":
               $_options["resources"] =  $input["resources"]["css"];
-              $output .= File::HtmlTag($options, $_options);
+              self::$stylesheet_tag = File::HtmlTag($options, $_options);
             break;
             case "javascript":
               $_options["resources"] = $input["resources"]["js"];
-              $output .= File::HtmlTag($options, $_options);
+              self::$javascript_tag = File::HtmlTag($options, $_options);
             break;
             case "helpers":
               if ($input["helpers"]["content"]) {
@@ -100,6 +75,14 @@
         }
         
       return $output;
+    }
+
+    public static function Stylesheet_Files() {
+      return self::$stylesheet_tag;
+    }
+
+    public static function Javascript_Files() {
+      return self::$javascript_tag;
     }
     
   }
