@@ -18,8 +18,7 @@
   interface iMoo {
     public static function Log($content, $console);
     public static function Debug($crazy_stuff, $die);
-    public static function Message($path);
-    public static function SandBox($sand, $message);
+    public static function SandBox($sand);
     public static function DomainCheck($domain);
   }
   

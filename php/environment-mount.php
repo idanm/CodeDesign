@@ -12,8 +12,8 @@
   }
 
   // Environment File Check
-  if (!file_exists(dirname(__FILE__) . '/../config/environment.json')) {
-    die("Please make a copy of environment.json file. an example file can be found at the config folder.");
+  if (!file_exists(dirname(__FILE__) . '/../environment.json')) {
+    die("Please make a copy of environment.json file, an example file can be found at the config folder.");
   }
 
 ?>

@@ -1,5 +1,0 @@
-{
-  "run": {
-    "failed":  "Run Failed: No environment.json file found. Please make a copy from environment.example.json and modify it for your use."
-  }
-}

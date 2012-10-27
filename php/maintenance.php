@@ -5,28 +5,8 @@
   
     public static function Log($content, $console) {
       $output = date("[Y/m/d H:i:s] ").$content."\n";
-      file_put_contents("logs/moo.log", $output, FILE_APPEND | LOCK_EX);
+      file_put_contents("moo.log", $output, FILE_APPEND | LOCK_EX);
       if ($console) self::Debug($output);
-    }
-
-    public static function Message($path) {
-      $messages = json_decode(
-        file_get_contents('config/messages.json'), true, 9
-      );
-      $echo = "";
-      $path = explode(".", $path);
-      $length = count($path);
-
-        for ($i = 0; $i <= $length; $i++) {
-          self::Debug($messages[$path[$i]]);
-          #$messages = $messages[$path[$i]];
-
-          if ($i == $length) {
-            $echo = $messages;
-          }
-        }
-
-      return $echo;
     }
     
     public static function Debug($crazy_stuff, $die = false) {
@@ -40,10 +20,9 @@
       }
     }
     
-    public static function Sandbox($sand, $message = '') {
+    public static function Sandbox($sand) {
       try { return $sand; } catch (exception $e) {
-        // $e->getMessage();
-        exit($message);
+        exit($e->getMessage());
       }
     }
     

@@ -4,8 +4,8 @@
     private static $content_folder, $stylesheet_tag, $javascript_tag;
     
     public static function Run() {
-      $json = Moo::Sandbox(file_get_contents('config/environment.json'), 'bla!');
-      $json = Moo::Sandbox(json_decode($json, true, 9), 'da!');
+      $json = Moo::Sandbox(file_get_contents(dirname(__FILE__) . '/../environment.json'));
+      $json = Moo::Sandbox(json_decode($json, true, 9));
 
       self::Laboratory(self::Config($json));
     }
@@ -74,15 +74,15 @@
           $output = "Missing Content Folder.";
         }
         
-      return $output;
+      echo $output;
     }
 
     public static function Stylesheet_Files() {
-      return self::$stylesheet_tag;
+      echo self::$stylesheet_tag;
     }
 
     public static function Javascript_Files() {
-      return self::$javascript_tag;
+      echo self::$javascript_tag;
     }
     
   }
