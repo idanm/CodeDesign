@@ -14,7 +14,7 @@
         die(var_dump($crazy_stuff));
       } else {
         $output = str_replace("'", "", 
-          var_export(json_encode($crazy_stuff,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), true)
+          json_encode($crazy_stuff, JSON_UNESCAPED_UNICODE)
         );
         echo '<script>console.log('. $output .');</script>';
       }

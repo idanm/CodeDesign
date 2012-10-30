@@ -6,21 +6,19 @@
     public static function Run() {
       $json = Moo::Sandbox(file_get_contents(dirname(__FILE__) . '/../environment.json'));
       $json = Moo::Sandbox(json_decode($json, true, 9));
-
       self::Laboratory(self::Config($json));
     }
     
     private static function Config($environment) {
       $output = array();
-
       foreach($environment as $domain => $settings) {
         if ($domain == "default") {
           $output = $environment["default"];
         } else {
           if (Moo::DomainCheck($domain)) {
             foreach ($settings as $options => $attributes) {
-                $output[$options] = array_replace_recursive($output[$options], $settings[$options]);
               if ((is_array($attributes) && count(array_filter(array_keys($attributes),'is_string')) == count($attributes))) {
+                $output[$options] = array_replace_recursive($output[$options], $settings[$options]);
               } else {
                 $output[$options] = array_merge($output[$options], $settings[$options]);
               }
@@ -28,16 +26,11 @@
           }
         }
       }
-      
       return $output;
     }
     
     private static function Laboratory($input) {
-      $_options = array(
-        "cache" => $input["config"]["cache"],
-        "concat" => $input["config"]["concat"],
-        "minify" => $input["config"]["minify"]
-      );
+      $_options = $input["config"];
       $output = "";
       
         foreach($input as $settings => $options) {

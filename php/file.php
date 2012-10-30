@@ -43,7 +43,7 @@
             break;
           }
         }
-        
+
         if ($options["concat"] === true && $options["minify"] === false) {
           $output = str_replace("#path", self::Concat($files, $options["resources"]["path"], $options["cache"]), $options["resources"]["tag"]);
         } else if ($options["minify"] === true) {
@@ -61,8 +61,6 @@
       if ($switch === true) {
         if (file_exists($file)) {
           $file = $file . '?' . date ("YmdHis", filemtime($file));
-        } else {
-          self::Log("Cache Failed: File doesn't exsits", true);
         }
       }
       
