@@ -57,11 +57,9 @@
       return $output;
     }
 
-    public static function Cache($file, $switch = false) {
-      if ($switch === true) {
-        if (file_exists($file)) {
-          $file = $file . '?' . date ("YmdHis", filemtime($file));
-        }
+    public static function Cache($file, $on = false) {
+      if ($on === true && file_exists($file)) {
+        $file = $file . '?' . date ("YmdHis", filemtime($file));
       }
       
       return $file;

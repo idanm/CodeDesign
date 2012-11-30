@@ -4,13 +4,14 @@
     private static $content_folder, $stylesheet_tag, $javascript_tag;
     
     public static function Run() {
-      $json = Moo::Sandbox(file_get_contents(dirname(__FILE__) . '/../environment.json'));
+      $json = Moo::Sandbox(file_get_contents(ENV_FILE_PATH));
       $json = Moo::Sandbox(json_decode($json, true, 9));
       self::Laboratory(self::Config($json));
     }
     
     private static function Config($environment) {
       $output = array();
+
       foreach($environment as $domain => $settings) {
         if ($domain == "default") {
           $output = $environment["default"];
@@ -26,6 +27,7 @@
           }
         }
       }
+      
       return $output;
     }
     

@@ -10,7 +10,7 @@
   interface iFile {
     public static function Create($file, $content, $cached);
     public static function HtmlTag($files, $options);
-    public static function Cache($file, $switch);
+    public static function Cache($file, $on);
     public static function Concat($files, $path, $cached);
     public static function Minify($file, $path, $cached);
   }
