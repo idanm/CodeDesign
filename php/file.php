@@ -19,7 +19,7 @@
 
     public static function Create($file, $content, $cached = false) {
 
-      if (!file_exists($file) || (file_exists($file) && sha1_file($file) != sha1($content))) {
+      if (!file_exists($file) || (file_exists($file) && sha1_file($content) != sha1($file))) {
         Moo::Sandbox(
           file_put_contents($file, $content, LOCK_EX)
         );
@@ -67,7 +67,7 @@
 
     public static function Concat($files, $path, $cached = false) {
       $content = "";
-      
+
         foreach($files as $key => $file) {
           $content .= trim(file_get_contents($file))."\n\n";
         }
