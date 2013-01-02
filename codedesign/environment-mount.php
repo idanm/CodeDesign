@@ -12,8 +12,8 @@
   }
 
   // Environment File Check
-  // if (!file_exists(ENV_FILE_PATH)) {
-  //   die("Please make a copy of environment.json file, an example file can be found at the config folder.");
-  // }
+  if (!file_exists(ENV_FILE)) {
+    die("Please make a copy of environment.json file, an environment.example.json file can be found at the codedesign folder.");
+  }
 
 ?>

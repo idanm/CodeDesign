@@ -7,18 +7,16 @@
    * @author idanm
   */
 
-  define("BASE_URL", __DIR__ . '/');
+  define('BASE_URL', __DIR__ . '/');
+  define('LIBRARY', BASE_URL . 'libs/');
+  define('ENV_FILE', BASE_URL . 'environment.json');
 
-  // Environment check and level
   require_once(BASE_URL . 'environment-mount.php');
-
-  // Configurations
-  // require_once(BASE_URL . 'config.php');
-
-  // Stylesheet and Javascript tag and file creation
+  require_once(BASE_URL . 'maintenance.php');
+  require_once(BASE_URL . 'config.php');
   require_once(BASE_URL . 'file.php');
+  require_once(BASE_URL . 'client.code.php');
 
-  // Client file
-  require_once(BASE_URL . 'code.php');
+  Config::Set(ENV_FILE, $_SERVER['SERVER_NAME']);
 
 ?> 

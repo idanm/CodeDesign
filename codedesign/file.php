@@ -1,18 +1,10 @@
 <?php
 
-  class File {
+  // File class
+  class File extends Library {
     public $output;
 
     public function __construct($type, $list, $cache, $minify, $concat) {
-      switch ($type) {
-        case 'stylesheet':
-
-        break;
-        case 'javascript':
-          
-        break;
-      }
-
       $this->output = $type;
     }
 
