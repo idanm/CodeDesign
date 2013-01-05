@@ -14,6 +14,7 @@
   require_once(BASE_URL . 'environment-mount.php');
   require_once(BASE_URL . 'maintenance.php');
   require_once(BASE_URL . 'config.php');
+  require_once(BASE_URL . 'library.php');
   require_once(BASE_URL . 'file.php');
   require_once(BASE_URL . 'client.code.php');
 
