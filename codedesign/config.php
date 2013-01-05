@@ -51,9 +51,9 @@
         }
 
         if (!empty($config)) {
-          $output['cache']  = $config[0] !== NULL ? $config[0] : self::$Data['config']['cache'];
-          $output['minify'] = $config[1] !== NULL ? $config[1] : self::$Data['config']['minify'];
-          $output['concat'] = $config[2] !== NULL ? $config[2] : self::$Data['config']['concat'];
+          $output['cache']  = is_null($config[0]) ? self::$Data['config']['cache']  : $config[0];
+          $output['minify'] = is_null($config[1]) ? self::$Data['config']['minify'] : $config[1];
+          $output['concat'] = is_null($config[2]) ? self::$Data['config']['concat'] : $config[2];
         }
 
         $output['type'] = $type;

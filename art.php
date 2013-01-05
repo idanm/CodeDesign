@@ -4,7 +4,7 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <?php Code::Stylesheet(array('123.js')); ?>
+  <?php Code::Stylesheet(); ?>
 
 </head><body id="top">
   
@@ -37,5 +37,5 @@
     </footer>
   </section>
 
-  <?php // Code::Javascript(); ?>
+  <?php Code::Javascript(); ?>
 </body></html>
