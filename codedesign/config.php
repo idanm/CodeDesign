@@ -26,6 +26,7 @@
       }
     }
 
+    // REWRITE to a useful get function
     public static function Get($value) {
       if (!empty($value)) {
         return self::$Data[$value];
@@ -38,22 +39,24 @@
 
         switch ($type) {
           case 'stylesheet':
-            $output[$type]['list'] = array_merge(self::$Data['stylesheet'], $list);
-            $output[$type]['tag']  = self::$Data['config']['tag']['stylesheet'];
-            $output[$type]['path'] = self::$Data['config']['path']['stylesheet'];
+            $output['list'] = array_merge(self::$Data['stylesheet'], $list);
+            $output['tag']  = self::$Data['config']['tag']['stylesheet'];
+            $output['path'] = self::$Data['config']['path']['stylesheet'];
           break;
           case 'javascript':
-            $output[$type]['list'] = array_merge(self::$Data['javascript'], $list);
-            $output[$type]['tag']  = self::$Data['config']['tag']['javascript'];
-            $output[$type]['path'] = self::$Data['config']['path']['javascript'];
+            $output['list'] = array_merge(self::$Data['javascript'], $list);
+            $output['tag']  = self::$Data['config']['tag']['javascript'];
+            $output['path'] = self::$Data['config']['path']['javascript'];
           break;
         }
 
-        if (empty($config)) {
-          $output[$type]['cache']  = !empty($config[0]) ? $config[0] : self::$Data['config']['cache'];
-          $output[$type]['minify'] = !empty($config[1]) ? $config[1] : self::$Data['config']['minify'];
-          $output[$type]['concat'] = !empty($config[2]) ? $config[2] : self::$Data['config']['concat'];
+        if (!empty($config)) {
+          $output['cache']  = $config[0] !== NULL ? $config[0] : self::$Data['config']['cache'];
+          $output['minify'] = $config[1] !== NULL ? $config[1] : self::$Data['config']['minify'];
+          $output['concat'] = $config[2] !== NULL ? $config[2] : self::$Data['config']['concat'];
         }
+
+        $output['type'] = $type;
 
       return $output;
     }

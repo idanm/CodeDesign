@@ -11,7 +11,7 @@
   <!-- Page -->
   <section id="page" class="container">
     <header class="clearfix">
-      <?php Code::Content('header'); ?>
+      <?php // Code::Content('header'); ?>
       
       <div class="btn-group">
         <a class="btn btn-success btn-large dropdown-toggle" data-toggle="dropdown" href="#">
@@ -26,16 +26,16 @@
     </header>
     
     <article class="well">
-      <?php Code::Content('content'); ?>
+      <?php // Code::Content('content'); ?>
       
       <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://bit.ly/PvVSB7" data-counturl="http://bit.ly/PvVSB7" data-lang="en" data-count="vertical">Tweet</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </article>
       
     <footer>
-      <?php Code::Content('footer'); ?>
+      <?php // Code::Content('footer'); ?>
     </footer>
   </section>
 
-  <?php Code::Javascript(); ?>
+  <?php // Code::Javascript(); ?>
 </body></html>

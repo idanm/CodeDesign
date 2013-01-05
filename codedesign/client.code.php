@@ -4,19 +4,23 @@
   class Code {
     public static function Stylesheet (
       array $list = array(),
-      array $config = array()
+      $cache = NULL,
+      $minify = NULL,
+      $concat = NULL
     ) {
       echo (new File(
-        Config::FileProperties('stylesheet', $list, $config)
+        Config::FileProperties('stylesheet', $list, array($cache, $minify, $concat))
       ));
     }
     
     public static function Javascript (
       array $list = array(),
-      array $config = array()
+      $cache = NULL,
+      $minify = NULL,
+      $concat = NULL
     ) {
       echo (new File(
-        Config::FileProperties('javascript', $list, $config)
+        Config::FileProperties('javascript', $list, array($cache, $minify, $concat))
       ));
     }
 
