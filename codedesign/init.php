@@ -17,7 +17,7 @@
   require_once(APP . 'config.php');
   require_once(APP . 'library.php');
   require_once(APP . 'file.php');
-  require_once(APP . 'client.code.php');
+  require_once(APP . 'client.php');
 
   Config::Set(ENV_FILE, 'development');
 

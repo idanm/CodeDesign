@@ -11,17 +11,17 @@
     }
 
     public function testStylesheet() {
-      Code::Stylesheet();
+      Stylesheet();
       $this->expectOutputString(static::$outputStrings['stylesheetTagMin']);
     }
 
     public function testJavascript() {      
-      Code::Javascript();
+      Javascript();
       $this->expectOutputString(static::$outputStrings['javascriptTagMin']);
     }
 
     public function testContent() {
-      Code::Content();
+      Content();
       $this->expectOutputString('content');
     }
   }
