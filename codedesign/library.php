@@ -1,5 +1,5 @@
 <?php
-  
+
   /*  
    * LESS compiler written in PHP.
    * URL https://github.com/leafo/lessphp

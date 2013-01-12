@@ -27,6 +27,7 @@
     public static function Content () {
       echo "content";
     }
+
   }
 
 ?> 

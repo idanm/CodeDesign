@@ -5,14 +5,14 @@
    * URL https://github.com/brunschgi/cssmin
    * Coded By brunschgi (Remo Brunschwiler)
   */
-  require_once(dirname(__FILE__) . '/libs/cssmin/cssmin.php');
+  require_once(LIBRARY . 'cssmin/cssmin.php');
   
   /*
    * PHP port of Douglas Crockford's JSMin JavaScript minifier. (Maintained version)
    * URL https://github.com/eriknyk/jsmin-php
    * Coded By eriknyk (Erik Amaru Ortiz)
   */
-  require_once(dirname(__FILE__) . '/libs/jsmin-php/jsmin.php');
+  require_once(LIBRARY . 'jsmin-php/jsmin.php');
 
   // File class
   class File extends Library {
@@ -39,7 +39,7 @@
         $this->output = str_replace("#path", $this->Minify($properties['list'], $properties["path"], $properties["cache"]), $properties["tag"]);
       } else {
         foreach($properties['list'] as $file) {
-          $this->output .= str_replace("#path", $file, $options["resources"]["tag"]);
+          $this->output .= str_replace("#path", $file, $properties["tag"]);
         }
       }
     }
@@ -78,12 +78,13 @@
     }
     
     public function Minify($files, $path, $cached = false) {
-      $extension = end(explode(".",$path));
-      $path = str_replace(".".$extension, ".min.".$extension, $path);
+      $tmp = explode(".", $path);
+      $file_extension = end($tmp);
+      $path = str_replace(".".$file_extension, ".min.".$file_extension, $path);
       $content = "";
       
         foreach($files as $key => $file) {
-          switch($extension) {
+          switch($file_extension) {
             case "css":
               Moo::Sandbox(
                 $content .= CssMin::minify(file_get_contents($file), array("RemoveComments" => false))."\n\n"

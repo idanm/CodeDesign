@@ -18,6 +18,6 @@
   require_once(BASE_URL . 'file.php');
   require_once(BASE_URL . 'client.code.php');
 
-  Config::Set(ENV_FILE, $_SERVER['SERVER_NAME']);
+  Config::Set(ENV_FILE, 'development');
 
 ?> 
