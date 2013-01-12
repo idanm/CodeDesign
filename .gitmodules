@@ -1,19 +1,19 @@
-[submodule "php/libs/lessphp"]
-  path = php/libs/lessphp
+[submodule "codedesign/libs/lessphp"]
+  path = codedesign/libs/lessphp
   url = git://github.com/leafo/lessphp.git
   
-[submodule "php/libs/coffeescript-php"]
-  path = php/libs/coffeescript-php
+[submodule "codedesign/libs/coffeescript-php"]
+  path = codedesign/libs/coffeescript-php
   url = git://github.com/alxlit/coffeescript-php.git
   
-[submodule "php/libs/cssmin"]
-  path = php/libs/cssmin
+[submodule "codedesign/libs/cssmin"]
+  path = codedesign/libs/cssmin
   url = git://github.com/brunschgi/cssmin.git
   
-[submodule "php/libs/jsmin-php"]
-  path = php/libs/jsmin-php
+[submodule "codedesign/libs/jsmin-php"]
+  path = codedesign/libs/jsmin-php
   url = git://github.com/eriknyk/jsmin-php.git
   
-[submodule "php/libs/php-markdown"]
-  path = php/libs/php-markdown
+[submodule "codedesign/libs/php-markdown"]
+  path = codedesign/libs/php-markdown
   url = git://github.com/michelf/php-markdown.git
