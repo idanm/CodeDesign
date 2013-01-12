@@ -7,16 +7,17 @@
    * @author idanm
   */
 
-  define('BASE_URL', __DIR__ . '/');
-  define('LIBRARY', BASE_URL . 'libs/');
+  define('BASE_URL', __DIR__ . '/../');
+  define('APP', BASE_URL . 'codedesign/');
+  define('LIBRARY', APP . 'libs/');
   define('ENV_FILE', BASE_URL . 'environment.json');
 
-  require_once(BASE_URL . 'environment-mount.php');
-  require_once(BASE_URL . 'maintenance.php');
-  require_once(BASE_URL . 'config.php');
-  require_once(BASE_URL . 'library.php');
-  require_once(BASE_URL . 'file.php');
-  require_once(BASE_URL . 'client.code.php');
+  require_once(APP . 'environment-mount.php');
+  require_once(APP . 'maintenance.php');
+  require_once(APP . 'config.php');
+  require_once(APP . 'library.php');
+  require_once(APP . 'file.php');
+  require_once(APP . 'client.code.php');
 
   Config::Set(ENV_FILE, 'development');
 

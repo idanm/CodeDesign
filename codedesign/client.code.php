@@ -26,6 +26,16 @@
 
     public static function Content () {
       echo "content";
+      
+      // if (!empty(self::$content_folder)) {
+      //   Moo::Sandbox(
+      //     $output = Library::Markdown(self::$content_folder.$path)
+      //   );
+      // } else {
+      //   $output = "Missing Content Folder.";
+      // }
+      
+      // echo $output;
     }
 
   }
