@@ -25,10 +25,10 @@
 
         switch ($file_extension) {
           case "less":
-            $properties['list'][$file] = parent::Less($file);
+            $properties['list'][$file] = parent::Less(BASE_URL . $file);
           break;
           case "coffee":
-            $properties['list'][$file] = parent::CoffeeScript($file);
+            $properties['list'][$file] = parent::CoffeeScript(BASE_URL . $file);
           break;
         }
       }
