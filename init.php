@@ -10,7 +10,7 @@
   define('BASE_URL', __DIR__ . '/../');
   define('APP', BASE_URL . 'codedesign/');
   define('LIBRARY', APP . 'libs/');
-  define('ENV_FILE', BASE_URL . 'environment.json');
+  define('ENV_FILE', APP . 'environment.yml');
 
   require_once(APP . 'environment-mount.php');
   require_once(APP . 'maintenance.php');
@@ -19,6 +19,8 @@
   require_once(APP . 'file.php');
   require_once(APP . 'client.php');
 
-  Config::Set(ENV_FILE, 'development');
+var_dump(ENV_FILE);
+
+  // Config::Set(ENV_FILE, 'development');
 
 ?> 
