@@ -10,7 +10,7 @@
   define('BASE_URL', __DIR__ . '/../');
   define('APP', BASE_URL . 'codedesign/');
   define('LIBRARY', APP . 'libs/');
-  define('ENV_FILE', APP . 'environment.yml');
+  define('ENV_FILE', APP . 'environment.yaml');
 
   require_once(APP . 'environment-mount.php');
   require_once(APP . 'maintenance.php');
