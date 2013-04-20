@@ -13,7 +13,7 @@
 
   // Environment File Check
   if ( !file_exists( ENV_FILE ) ) {
-    die("Please make a copy of environment.yaml file, an environment.example.yaml file can be found at the codedesign folder.");
+    die("Please make a copy of environment.json file, an environment.example.json file can be found at the codedesign folder.");
   }
 
 ?>

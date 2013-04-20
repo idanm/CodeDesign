@@ -32,7 +32,9 @@
           break;
         }
       }
-
+  // tag: 
+//   stylesheet: "<link rel="stylesheet" type="text/css" href="#path">"
+//   javascript: "<script src="#path"></script>"
       if ($properties["concat"] === true && $properties["minify"] === false) {
         $this->output = str_replace("#path", $this->Concat($properties['list'], $properties["path"], $properties["cache"]), $properties["tag"]);
       } else if ($properties["minify"] === true) {

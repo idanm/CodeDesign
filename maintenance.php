@@ -14,10 +14,24 @@
       }
     }
     
-    public static function Sandbox($sand) {
-      try { return $sand; } catch (exception $e) {
-        exit($e->getMessage());
+    public static function Sandbox( $sand )
+    {
+      try { return $sand; } catch ( exception $e ) {
+        exit( $e->getMessage() );
       }
+    }
+
+    public static function Log( $message, $on )
+    {
+      if ( $on === true ) {
+
+      }
+
+    }    
+
+    public static function checkEnvironment( $server_name, $server_env, $environment )
+    {
+      // echo apache_getenv("SERVER_NAME");
     }
 
   }

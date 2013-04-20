@@ -14,13 +14,6 @@
   */
   require_once(LIBRARY . 'coffeescript-php/src/CoffeeScript/Init.php');
   
-  /*
-   * PHP Markdown is a port to PHP of the Markdown perl script by John Grubber.
-   * URL https://github.com/michelf/php-markdown
-   * Coded By michelf (Michel Fortin)
-  */
-  require_once(LIBRARY . 'php-markdown/markdown.php');
-  
 
   class Library {
     
@@ -57,18 +50,6 @@
         
       return $path;
     }
-    
-    public static function Markdown($path) {
-      Moo::Sandbox(
-        $output = Markdown(file_get_contents($path.".md"))
-      );
-      return $output;
-    }
-    
-    /*
-     * https://github.com/philipwalton/PW_Zen_Coder
-     * http://code.google.com/p/zen-php/
-     * http://imsky.github.com/holder/
-     */
+
   }
 ?>
