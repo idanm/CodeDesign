@@ -29,9 +29,9 @@
 
     }    
 
-    public static function checkEnvironment( $server_name, $server_env, $environment )
+    public static function checkEnvironment( $server, $environment )
     {
-      // echo apache_getenv("SERVER_NAME");
+      return $server === $_SERVER["SERVER_NAME"] && $environment === $_ENV["ENVIRONMENT"];
     }
 
   }

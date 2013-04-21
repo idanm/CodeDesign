@@ -17,8 +17,8 @@
         if ( $domain == "default" )
         {
           self::$Data = self::$JSON[$domain];
-        } 
-        else if ( Moo::checkEnvironment( $settings['server_name'], $settings['server_env'], $settings['environment'] ) )
+        }
+        else if ( Moo::checkEnvironment( $settings['server_name'], $settings['environment'] ) )
         {
           foreach ( $settings as $options => $attributes ) 
           {
@@ -53,7 +53,7 @@
             }
             return $where[$item];
           } else {
-            return $this->find( $where[$item], $what, $replace )
+            return $this->find( $where[$item], $what, $replace );
           }
         }
       }
