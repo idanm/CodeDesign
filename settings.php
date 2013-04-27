@@ -1,34 +1,30 @@
 <?php
 
   class Settings {
-    private static $JSON, $Data;
+    private static $JSON, $Params;
     private function __construct() {}
 
     public static function init( $file )
     {
       self::$JSON = Moo::Sandbox(
-        json_decode(
-          file_get_contents( $file ), true, 9
-        )
+        json_decode( file_get_contents( $file ), true, 9), 'Invalid environment file ('. ENV_FILE .')'
       );
 
       foreach( self::$JSON as $domain => $settings )
       {
-        if ( $domain == "default" )
-        {
-          self::$Data = self::$JSON[$domain];
-        }
-        else if ( Moo::checkEnvironment( $settings['server_name'], $settings['environment'] ) )
-        {
+        if ( $domain == "default" ) {
+          self::$Params = self::$JSON[$domain];
+        } else if ( Moo::checkEnvironment( $settings['server_name'], $settings['environment'] ) ) {
           foreach ( $settings as $options => $attributes ) 
           {
-            if ( is_array( $attributes ) && count( array_filter( array_keys( $attributes ), 'is_string' ) ) == count( $attributes ) )
-            {
-              self::$Data[$options] = array_replace_recursive( self::$Data[$options], $settings[$options] );
-            } 
-            else
-            {
-              self::$Data[$options] = array_merge( self::$Data[$options], $settings[$options] );
+            if ( is_array( $attributes ) ) {
+              if ( count( array_filter( array_keys( $attributes ), 'is_string' ) ) == count( $attributes ) ) {
+                self::$Params[$options] = array_replace_recursive( self::$Params[$options], $settings[$options] );
+              } else {
+                self::$Params[$options] = array_merge( self::$Params[$options], $settings[$options] ); 
+              }
+            }  else {
+              self::$Params[$options] = $settings[$options];
             }
           }
         }
@@ -63,7 +59,7 @@
     public static function get( $what )
     {
       if ( !empty( $what ) ) {
-        return self::$Data[$what];
+        return self::$Params[$what];
       }
     }
 
@@ -77,12 +73,12 @@
     {
       $output = array();
 
-        $output['tag']    = self::$Data['config']['tag'][$type];
-        $output['path']   = self::$Data['config']['path'][$type];
-        $output['list']   = empty($list) ? self::$Data[$type] : array_merge(self::$Data[$type], $list);
-        $output['cache']  = empty($config[0]) ? self::$Data['config']['cache']  : $config[0];
-        $output['minify'] = empty($config[1]) ? self::$Data['config']['minify'] : $config[1];
-        $output['concat'] = empty($config[2]) ? self::$Data['config']['concat'] : $config[2];
+        $output['tag']    = self::$Params['config']['tag'][$type];
+        $output['path']   = self::$Params['config']['path'][$type];
+        $output['list']   = empty($list) ? self::$Params[$type] : array_merge(self::$Params[$type], $list);
+        $output['cache']  = empty($config[0]) ? self::$Params['config']['cache']  : $config[0];
+        $output['minify'] = empty($config[1]) ? self::$Params['config']['minify'] : $config[1];
+        $output['concat'] = empty($config[2]) ? self::$Params['config']['concat'] : $config[2];
 
       return $output;
     }

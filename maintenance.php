@@ -3,20 +3,28 @@
   // Moo is a maintenance class.
   class Moo {
     
-    public static function Debug($crazy_stuff, $die = false) {
-      if ($die) {
-        die(var_dump($crazy_stuff));
+    public static function Debug( $nonsense, $die = false ) {
+      if ( $die ) {
+        die( var_dump( $nonsense ) );
       } else {
         $output = str_replace("'", "", 
-          json_encode($crazy_stuff, JSON_UNESCAPED_UNICODE)
+          json_encode( $nonsense, JSON_UNESCAPED_UNICODE )
         );
         echo '<script>console.log('. $output .');</script>';
       }
     }
     
-    public static function Sandbox( $sand )
+    public static function Sandbox( $sand, $message )
     {
-      try { return $sand; } catch ( exception $e ) {
+      try {
+        $blah = @$sand;
+
+          if ( $blah === false || is_null($blah) ) {
+            throw new exception( $message );
+          }
+
+        return $blah;
+      } catch ( exception $e ) {
         exit( $e->getMessage() );
       }
     }
