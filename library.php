@@ -20,6 +20,13 @@
    * Coded By leafo (Leaf Corcoran)
   */
   require_once(LIBRARY . 'lessphp/lessc.inc.php');
+
+  /*  
+   * SCSS compiler written in PHP.
+   * URL https://github.com/leafo/scssphp
+   * Coded By leafo (Leaf Corcoran)
+  */
+  require_once(LIBRARY . 'scssphp/scss.inc.php');
   
   /*
    * A port of the CoffeeScript compiler to PHP.
@@ -31,38 +38,50 @@
 
   class Library {
     
-    public static function Less($path) {
-      $_path = explode(".", $path);
-      $_path[count($_path) -1] = "css";
-      $output = "";
+    public static function Less( $file )
+    {
+      $output = '';
+      $less = new lessc;
 
-        $less = new lessc;
-        
-        Moo::Sandbox(
-          $output = $less->compileFile($path)
+        $output = $less->compileFile( BASE_URL . $file );
+        $file = Moo::changeFileExtension( $file, 'css' );
+        file_put_contents( $file, $output, LOCK_EX );
+
+      return $file;
+    }
+
+    public static function Scss( $file, $folder )
+    {
+      $output = '';
+
+        $scss = new scssc();
+        $scss->setFormatter('scss_formatter');
+        $scss->setImportPaths( BASE_URL . $folder );
+        $output = $scss->compile(
+          file_get_contents( BASE_URL . $file )
         );
-        
-        $path = implode(".", $_path);
-        file_put_contents($path, $output, LOCK_EX);
 
-      return $path;
+        $file = Moo::changeFileExtension( $file, 'css' );
+        file_put_contents( $file, $output, LOCK_EX );
+
+      return $file;
     }
     
-    public static function CoffeeScript($path) {
-      $_path = explode(".", $path);
-      $_path[count($_path) -1] = "js";
-      $output = "";
+    // Tested long long time ago, so I don't think this is working.
+    public static function CoffeeScript( $file )
+    {
+      $output = '';
       
         CoffeeScript\Init::load();
       
-        Moo::Sandbox(
-          $output = CoffeeScript\Compiler::compile(file_get_contents($path), array('filename' => $path))
+        $output = CoffeeScript\Compiler::compile(
+          file_get_contents( BASE_URL . $file ), array( 'filename' => $file )
         );
+      
+        $file = Moo::changeFileExtension( $file, 'js' );
+        file_put_contents( $file, $output, LOCK_EX );
         
-        $path = implode(".", $_path);
-        file_put_contents($path, $output, LOCK_EX);
-        
-      return $path;
+      return $file;
     }
 
   }

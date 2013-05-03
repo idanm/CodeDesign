@@ -18,11 +18,9 @@
     {
       try {
         $blah = @$sand;
-
           if ( $blah === false || is_null($blah) ) {
             throw new exception( $message );
           }
-
         return $blah;
       } catch ( exception $e ) {
         exit( $e->getMessage() );
@@ -41,6 +39,21 @@
     {
       return $server === $_SERVER["SERVER_NAME"] && $environment === $_ENV["ENVIRONMENT"];
     }
+
+    public static function getFileExtension( $file )
+    {
+      $tmp = explode( ".", $file ); return end( $tmp );
+    }
+
+    public static function changeFileExtension( $file, $extension )
+    {
+      $file = explode(".", $file);
+      $file[count($file) -1] = $extension;
+      $file = implode(".", $file);
+
+      return $file;
+    }
+
 
   }
   

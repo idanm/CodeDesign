@@ -3,10 +3,11 @@
   // File class
   class File extends Library {
     public $output;
+    private static $cache;
 
     public function __construct( $output_file, $list, $settings )
     {
-      switch ( $this->getFileExtension( $output_file ) ) {
+      switch ( Moo::getFileExtension( $output_file ) ) {
         case 'css':
           $tag = '<link rel="stylesheet" type="text/css" href="#path">';
         break;
@@ -15,27 +16,29 @@
         break;
       }
 
-      foreach( $list as $file ) {
-        switch ( $this->getFileExtension( $file ) ) {
+      for( $i = 0; $i < count( $list ); $i = $i + 1 ) {
+        switch ( Moo::getFileExtension( $list[$i] ) ) {
           case "less":
-            $list[$file] = parent::Less( BASE_URL . $file );
+            $list[$i] = parent::Less( $list[$i] );
           break;
           case "scss":
-            $list[$file] = parent::SCSS( BASE_URL . $file );
+            $list[$i] = parent::Scss( $list[$i], $settings['folders']['css'] );
           break;
           case "coffee":
-            $list[$file] = parent::CoffeeScript( BASE_URL . $file );
+            $list[$i] = parent::CoffeeScript( $list[$i] );
           break;
         }
       }
 
+      self::$cache = $settings["cache"];
+
       if ( $settings["concat"] === true && $settings["minify"] === false ) {
         $this->output = str_replace(
-          "#path", $this->Concat($list, $output_file, $settings["cache"]), $tag
+          "#path", $this->Concat( $list, $output_file ), $tag
         );
-      } else if ( $properties["minify"] === true ) {
+      } else if ( $settings["minify"] === true ) {
         $this->output = str_replace(
-          "#path", $this->Minify($list, $output_file, $settings["cache"]), $tag
+          "#path", $this->Minify( $list, $output_file ), $tag
         );
       } else {
         foreach( $list as $file ) {
@@ -46,45 +49,46 @@
       }
     }
 
-    protected function getFileExtension( $file )
-    {
-      $tmp = explode( ".", $file ); return end( $tmp );
-    }
-
     public function __toString() {
       return $this->output;
     }
 
-    private function Create($file, $content, $cached = false) {
+    private function Create( $file, $content )
+    {
 
-      if (!file_exists($file) || (sha1_file($file) != sha1($content))) {
-        Moo::Sandbox(
-          file_put_contents($file, $content, LOCK_EX)
-        );
+      if ( !file_exists( $file ) || ( sha1_file( $file ) !== sha1( $content ) ) ) {
+        file_put_contents($file, $content, LOCK_EX);
       }
 
-      return $this->Cache($file, $cached);
+      if ( self::$cache ) {
+        $file = $this->Cache($file);
+      }
+
+      return $file;
     }
 
-    private function Cache($file, $on = false) {
-      if ($on === true && file_exists($file)) {
+    private function Cache( $file )
+    {
+      if ( file_exists( $file ) ) {
         $file = $file . '?' . date ("YmdHis", filemtime($file));
       }
       
       return $file;
     }
 
-    private function Concat($files, $path, $cached = false) {
+    private function Concat( $files, $path )
+    {
       $content = "";
 
-        foreach($files as $key => $file) {
-          $content .= trim(file_get_contents($file))."\n\n";
+        foreach( $files as $file ) {
+          $content .= trim( file_get_contents( $file ) )."\n\n";
         }
         
-      return $this->Create($path, $content, $cached);
+      return $this->Create($path, $content);
     }
     
-    private function Minify($files, $path, $cached = false) {
+    private function Minify( $files, $path )
+    {
       $tmp = explode(".", $path);
       $file_extension = end($tmp);
       $path = str_replace(".".$file_extension, ".min.".$file_extension, $path);
@@ -93,21 +97,17 @@
         foreach($files as $key => $file) {
           switch($file_extension) {
             case "css":
-              Moo::Sandbox(
-                $content .= CssMin::minify(file_get_contents($file), array("RemoveComments" => false))."\n\n"
-              );
+              $content .= CssMin::minify(file_get_contents($file), array("RemoveComments" => false))."\n\n";
             break;
             case "js":
-              Moo::Sandbox(
-                $content .= JSMin::minify(file_get_contents($file))."\n\n"
-              );
+              $content .= JSMin::minify(file_get_contents($file))."\n\n";
             break;
             default:
             break;
           }
         }
 
-      return $this->Create($path, $content, $cached);
+      return $this->Create($path, $content);
     }
 
 
