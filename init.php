@@ -17,7 +17,7 @@
   require_once(APP . 'settings.php');
   // require_once(APP . 'library.php');
   // require_once(APP . 'file.php');
-  // require_once(APP . 'client.php');
+  require_once(APP . 'client.php');
 
   Settings::init( ENV_FILE );
   

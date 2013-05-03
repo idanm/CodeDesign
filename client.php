@@ -1,25 +1,21 @@
 <?php
   
-  function Stylesheet (
-    array $list = array(),
-    $cache = NULL,
-    $minify = NULL,
-    $concat = NULL
-  ) {
-    echo (new File(
-      Config::FileProperties('stylesheet', $list, array($cache, $minify, $concat))
-    ));
+//  CodeDesign( array(
+//    'output' => 'styles/application.css',
+//    'list'   => array(
+//      'styles/application.scss'
+//    )
+//  ));
+
+  function CodeDesign( $array ) {
+    $output = '';
+      if ( array_values( $array ) === $array ) {
+        foreach ( $array as $key ) {
+          // $output .= ( new File( $key['output'], $key['list'] ) );
+        }
+      } else {
+        // $output = ( new File( $array['output'], $array['list'] ) );
+      }
+    echo $output;
   }
-    
-  function Javascript (
-    array $list = array(),
-    $cache = NULL,
-    $minify = NULL,
-    $concat = NULL
-  ) {
-    echo (new File(
-      Config::FileProperties('javascript', $list, array($cache, $minify, $concat))
-    ));
-  }
-  
 ?> 
