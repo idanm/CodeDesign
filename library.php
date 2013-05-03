@@ -1,5 +1,19 @@
 <?php
 
+  /*
+   * A (simple) css minifier with benefits
+   * URL https://github.com/brunschgi/cssmin
+   * Coded By brunschgi (Remo Brunschwiler)
+  */
+  require_once(LIBRARY . 'cssmin/cssmin.php');
+  
+  /*
+   * PHP port of Douglas Crockford's JSMin JavaScript minifier. (Maintained version)
+   * URL https://github.com/eriknyk/jsmin-php
+   * Coded By eriknyk (Erik Amaru Ortiz)
+  */
+  require_once(LIBRARY . 'jsmin-php/jsmin.php');
+
   /*  
    * LESS compiler written in PHP.
    * URL https://github.com/leafo/lessphp

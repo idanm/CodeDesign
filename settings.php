@@ -31,7 +31,7 @@
       }
     }
 
-    private function find( $where, $what, $replace )
+    private function find( $where, $what, $replace = '' )
     {
       if ( empty( $what ) ) {
         return $where;
@@ -56,14 +56,14 @@
     }
 
     // REWRITE to a useful get function with find.
-    public static function get( $what )
+    public static function get( $what = '' )
     {
-      if ( !empty( $what ) ) {
-        return self::$Params[$what];
-      }
+      return !empty( $what )
+        ? $this->find( self::$Params, $what )
+        : self::$Params;
     }
 
-    public static function set( $what ) 
+    public static function set( $what, $replace )
     {
       // Write the function with find.
     }

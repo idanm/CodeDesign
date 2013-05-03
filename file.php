@@ -1,56 +1,61 @@
 <?php
 
-  /*
-   * A (simple) css minifier with benefits
-   * URL https://github.com/brunschgi/cssmin
-   * Coded By brunschgi (Remo Brunschwiler)
-  */
-  require_once(LIBRARY . 'cssmin/cssmin.php');
-  
-  /*
-   * PHP port of Douglas Crockford's JSMin JavaScript minifier. (Maintained version)
-   * URL https://github.com/eriknyk/jsmin-php
-   * Coded By eriknyk (Erik Amaru Ortiz)
-  */
-  require_once(LIBRARY . 'jsmin-php/jsmin.php');
-
   // File class
   class File extends Library {
     public $output;
 
-    public function __construct(array $properties) {
-      foreach($properties['list'] as $file) {
-        $tmp = explode(".", $file);
-        $file_extension = end($tmp);
+    public function __construct( $output_file, $list, $settings )
+    {
+      switch ( $this->getFileExtension( $output_file ) ) {
+        case 'css':
+          $tag = '<link rel="stylesheet" type="text/css" href="#path">';
+        break;
+        case 'js':
+          $tag = '<script src="#path"></script>';
+        break;
+      }
 
-        switch ($file_extension) {
+      foreach( $list as $file ) {
+        switch ( $this->getFileExtension( $file ) ) {
           case "less":
-            $properties['list'][$file] = parent::Less(BASE_URL . $file);
+            $list[$file] = parent::Less( BASE_URL . $file );
+          break;
+          case "scss":
+            $list[$file] = parent::SCSS( BASE_URL . $file );
           break;
           case "coffee":
-            $properties['list'][$file] = parent::CoffeeScript(BASE_URL . $file);
+            $list[$file] = parent::CoffeeScript( BASE_URL . $file );
           break;
         }
       }
-  // tag: 
-//   stylesheet: "<link rel="stylesheet" type="text/css" href="#path">"
-//   javascript: "<script src="#path"></script>"
-      if ($properties["concat"] === true && $properties["minify"] === false) {
-        $this->output = str_replace("#path", $this->Concat($properties['list'], $properties["path"], $properties["cache"]), $properties["tag"]);
-      } else if ($properties["minify"] === true) {
-        $this->output = str_replace("#path", $this->Minify($properties['list'], $properties["path"], $properties["cache"]), $properties["tag"]);
+
+      if ( $settings["concat"] === true && $settings["minify"] === false ) {
+        $this->output = str_replace(
+          "#path", $this->Concat($list, $output_file, $settings["cache"]), $tag
+        );
+      } else if ( $properties["minify"] === true ) {
+        $this->output = str_replace(
+          "#path", $this->Minify($list, $output_file, $settings["cache"]), $tag
+        );
       } else {
-        foreach($properties['list'] as $file) {
-          $this->output .= str_replace("#path", $file, $properties["tag"]);
+        foreach( $list as $file ) {
+          $this->output .= str_replace(
+            "#path", $file, $tag
+          );
         }
       }
+    }
+
+    protected function getFileExtension( $file )
+    {
+      $tmp = explode( ".", $file ); return end( $tmp );
     }
 
     public function __toString() {
       return $this->output;
     }
 
-    public function Create($file, $content, $cached = false) {
+    private function Create($file, $content, $cached = false) {
 
       if (!file_exists($file) || (sha1_file($file) != sha1($content))) {
         Moo::Sandbox(
@@ -61,7 +66,7 @@
       return $this->Cache($file, $cached);
     }
 
-    public function Cache($file, $on = false) {
+    private function Cache($file, $on = false) {
       if ($on === true && file_exists($file)) {
         $file = $file . '?' . date ("YmdHis", filemtime($file));
       }
@@ -69,7 +74,7 @@
       return $file;
     }
 
-    public function Concat($files, $path, $cached = false) {
+    private function Concat($files, $path, $cached = false) {
       $content = "";
 
         foreach($files as $key => $file) {
@@ -79,7 +84,7 @@
       return $this->Create($path, $content, $cached);
     }
     
-    public function Minify($files, $path, $cached = false) {
+    private function Minify($files, $path, $cached = false) {
       $tmp = explode(".", $path);
       $file_extension = end($tmp);
       $path = str_replace(".".$file_extension, ".min.".$file_extension, $path);
