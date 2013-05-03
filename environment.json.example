@@ -1,0 +1,26 @@
+{
+  "default": {
+    "environment": "production",
+    "server_name": "localhost",
+    "folders": {
+      "css": "styles/",
+      "js": "scripts/"
+    },
+    "cache":  false,
+    "concat": false,
+    "minify": false
+  },
+
+  "development": {
+    "environment": "development",
+    "server_name": "localhost",
+    "concat": true
+  },
+
+  "production": {
+    "environment": "production",
+    "server_name": "example.com",
+    "cache":  true,
+    "minify": true
+  }
+}
