@@ -1,9 +1,9 @@
 [submodule "libs/lessphp"]
-  path = libs/lessphp
-  url = git://github.com/leafo/lessphp.git
+	path = libs/lessphp
+	url = git://github.com/leafo/lessphp.git
 [submodule "libs/coffeescript-php"]
-  path = libs/coffeescript-php
-  url = git://github.com/alxlit/coffeescript-php.git
+	path = libs/coffeescript-php
+	url = git://github.com/alxlit/coffeescript-php.git
 [submodule "libs/cssmin"]
 	path = libs/cssmin
 	url = git://github.com/brunschgi/cssmin.git
